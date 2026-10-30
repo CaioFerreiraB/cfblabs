@@ -24,6 +24,7 @@ GitHub Pages custom-domain settings, rather than a `CNAME` file in the source re
 ## Verification status (2026-10-30)
 
 - Public resolvers return all four GitHub Pages A records for the apex and `caioferreirab.github.io` for `www`.
-- GitHub Pages serves the site over HTTP at the custom domain.
-- GitHub reports the TLS certificate request as `new`; HTTPS enforcement remains unavailable until the certificate is issued.
+- GitHub approved a TLS certificate for both the apex and `www`, and `https_enforced` is enabled.
+- All eight routes and the hero image return `200` over HTTPS when directed to the GitHub Pages IPs. `www` redirects to the apex over HTTPS.
+- Some GitHub edge caches may still serve the previous HTTP response while HTTPS enforcement propagates.
 - The local resolver still caches the previous apex address, so local browser checks may briefly reach the former server.

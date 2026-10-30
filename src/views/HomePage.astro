@@ -10,20 +10,38 @@ interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const t = copy[locale];
 const featured = projects.filter((project) => project.featured);
+const highlights = [site.homeAbout.highlights.education, site.homeAbout.highlights.experience, site.homeAbout.highlights.interests];
 ---
-<BaseLayout locale={locale} page="home" title={t.navigation.home} description={site.hero.subtitle[locale]} hero>
+<BaseLayout locale={locale} page="home" title={t.navigation.home} description={site.hero.description[locale]} hero>
   <section class="hero" style={`--hero-image: url('${assetHref(site.hero.image)}')`}>
     <div class="hero-shade"></div>
     <div class="hero-content container">
-      <h1>{site.hero.title[locale]}</h1>
-      <p>{site.hero.subtitle[locale]}</p>
+      <p class="hero-eyebrow">{site.hero.greeting[locale]}</p>
+      <h1>{site.hero.title[locale].map((segment) => <span style={segment.color ? `color: ${segment.color}` : undefined}>{segment.text}</span>)}</h1>
+      <p class="hero-subtitle">{site.hero.subtitle[locale].map((segment) => <span style={segment.color ? `color: ${segment.color}` : undefined}>{segment.text}</span>)}</p>
+      <p class="hero-description">{site.hero.description[locale]}</p>
       <div class="hero-actions">
         <a class="button button-primary" href="#featured-projects">{t.heroPrimary}<Icon name="arrow-right" size={17} /></a>
         <a class="button button-outline" href={pageHref(locale, 'about')}>{t.heroSecondary}</a>
       </div>
     </div>
-    <div class="hero-focus container" aria-label={t.focusTitle}>
-      {profile.focusAreas.map((area) => <span><Icon name={area.icon} size={17} />{area.label[locale]}</span>)}
+  </section>
+  <section class="home-about" aria-labelledby="home-about-title">
+    <div class="home-about-grid container">
+      <div class="home-about-image"><img src={assetHref(profile.photo)} alt={profile.name} loading="lazy" decoding="async" /></div>
+      <div class="home-about-main">
+        <p class="home-about-eyebrow">{site.homeAbout.eyebrow[locale]}</p>
+        <h2 id="home-about-title">{site.homeAbout.title[locale]}</h2>
+        <p class="home-about-description">{site.homeAbout.description[locale]}</p>
+        <div class="home-about-highlights">
+          {highlights.map((item) => <div class="home-about-highlight"><Icon name={item.icon} size={30} strokeWidth={1.8} /><h3>{item.label[locale]}</h3><p>{item.detail[locale]}</p></div>)}
+        </div>
+      </div>
+      <aside class="home-beyond">
+        <h3>{site.homeAbout.beyondWork.title[locale]}</h3>
+        <ul>{profile.focusAreas.map((item) => <li style={`--interest-color: ${item.color}`}><Icon name={item.icon} size={27} strokeWidth={1.8} /><span><strong>{item.label[locale]}</strong><small>{item.detail[locale]}</small></span></li>)}</ul>
+        <a href={pageHref(locale, 'about')}>{site.homeAbout.beyondWork.linkLabel[locale]}<Icon name="arrow-right" size={17} /></a>
+      </aside>
     </div>
   </section>
   <section class="featured-section container" id="featured-projects" aria-labelledby="featured-title">

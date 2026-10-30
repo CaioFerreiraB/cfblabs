@@ -15,5 +15,5 @@ const channels = [
 ];
 ---
 <BaseLayout locale={locale} page="contact" title={t.contactTitle} description={t.contactLead}>
-  <div class="page-shell container contact-page"><div class="page-heading"><h1>{t.contactTitle}</h1><p>{t.contactLead}</p></div><div class="contact-list">{channels.map((channel) => <a href={channel.href} target={channel.icon === 'mail' ? undefined : '_blank'} rel={channel.icon === 'mail' ? undefined : 'noopener noreferrer'}><span class="contact-icon"><Icon name={channel.icon} size={24} /></span><span class="contact-copy"><strong>{channel.label}</strong><span>{channel.value}</span></span><Icon name="arrow-up-right" size={20} /></a>)}</div></div>
+  <div class="page-shell container contact-page"><div class="page-heading"><h1>{t.contactTitle}</h1><p>{t.contactLead}</p></div><div class="contact-list">{channels.map((channel) => <a href={channel.href} target={channel.icon === 'mail' ? undefined : '_blank'} rel={channel.icon === 'mail' ? undefined : 'noopener noreferrer'}><span class="contact-icon"><Icon name={channel.icon} size={channel.icon === 'linkedin' || channel.icon === 'github' ? 30 : 24} /></span><span class="contact-copy"><strong>{channel.label}</strong><span>{channel.value}</span></span><Icon name="arrow-up-right" size={20} /></a>)}</div></div>
 </BaseLayout>

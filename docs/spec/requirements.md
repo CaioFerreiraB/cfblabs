@@ -3,8 +3,8 @@
 ## Scope
 
 - R1: Publish a responsive English and Portuguese static portfolio with Home, About, Projects, and Contact routes. English is the default locale.
-- R2: Keep Home limited to the hero and three featured projects.
-- R3: Generate each About section from its own YAML file and provide an anchor index.
+- R2: Show the hero, an About summary, and three featured projects on Home.
+- R3: Generate each About section from its own YAML file and provide an anchor index. Professional and research experience use separate files and sections.
 - R4: Render all projects from one YAML list. Each card includes a cover, name, short description, tags, and a working destination link.
 - R5: Show email, LinkedIn, and GitHub on Contact. No form or blog is included in version one.
 - R6: Maintain the brand, contact details, hero text, and hero image path in `site.yml`.

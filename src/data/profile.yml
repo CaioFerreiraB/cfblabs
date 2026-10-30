@@ -1,5 +1,5 @@
 name: Caio Ferreira Bernardo
-photo: /images/profile/portrait-placeholder.svg
+photo: /images/profile/profile.jpg
 location:
   city: Barueri
   state: São Paulo
@@ -18,7 +18,7 @@ focusAreas:
       en: Making information useful and clear.
       pt: Transformar informação em algo útil e claro.
     icon: chart-no-axes-combined
-    color: '#2563eb'
+    color: '#15803d'
   - id: environment
     label:
       en: Environment
@@ -36,7 +36,7 @@ focusAreas:
       en: Data products and applied AI.
       pt: Produtos de dados e IA aplicada.
     icon: code-xml
-    color: '#7c3aed'
+    color: '#15803d'
   - id: community
     label:
       en: Community
@@ -45,4 +45,13 @@ focusAreas:
       en: Scouting and volunteer work.
       pt: Escotismo e voluntariado.
     icon: users-round
-    color: '#d97706'
+    color: '#15803d'
+  - id: photography
+    label:
+      en: Photography
+      pt: Fotografia
+    detail:
+      en: Nature, travel, and everyday life.
+      pt: Natureza, viagens e cotidiano.
+    icon: camera
+    color: '#15803d'

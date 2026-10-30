@@ -1,26 +1,30 @@
 ---
 import {
-  ArrowRight, ArrowUpRight, BriefcaseBusiness, ChartNoAxesCombined,
+  ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Camera, ChartNoAxesCombined,
   CodeXml, GraduationCap, HeartHandshake, Mail,
-  MapPin, Trees, UsersRound,
+  MapPin, Microscope, Trees, UsersRound,
 } from '@lucide/astro';
+import { assetHref } from '../lib/i18n';
 
 interface Props { name: string; size?: number; strokeWidth?: number; class?: string; }
 const { name, size = 20, strokeWidth = 1.8, class: className } = Astro.props;
 const icons = {
   'arrow-right': ArrowRight,
   'arrow-up-right': ArrowUpRight,
+  'book-open': BookOpen,
   'briefcase-business': BriefcaseBusiness,
+  camera: Camera,
   'chart-no-axes-combined': ChartNoAxesCombined,
   'code-xml': CodeXml,
   'graduation-cap': GraduationCap,
   'heart-handshake': HeartHandshake,
   mail: Mail,
   'map-pin': MapPin,
+  microscope: Microscope,
   trees: Trees,
   'users-round': UsersRound,
 };
 const Component = icons[name as keyof typeof icons];
-if (!Component && name !== 'github' && name !== 'linkedin') throw new Error(`Unsupported icon: ${name}`);
+if (!Component && name !== 'github' && name !== 'github-white' && name !== 'linkedin' && name !== 'linkedin-white') throw new Error(`Unsupported icon: ${name}`);
 ---
-{name === 'github' ? <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" class={className} aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.82c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.31-3.76-1.31-.5-1.28-1.23-1.62-1.23-1.62-1.01-.7.08-.69.08-.69 1.12.08 1.7 1.15 1.7 1.15 1 .08 1.77-.76 2.18-1.13.1-.72.39-1.22.71-1.5-2.47-.28-5.07-1.24-5.07-5.54 0-1.22.44-2.22 1.15-3-.11-.28-.5-1.42.11-2.96 0 0 .94-.3 3.08 1.14a10.7 10.7 0 0 1 5.6 0c2.14-1.45 3.08-1.14 3.08-1.14.61 1.54.22 2.68.11 2.96.72.78 1.14 1.78 1.14 3 0 4.31-2.6 5.25-5.08 5.53.4.35.75 1.04.75 2.1v3.12c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg> : name === 'linkedin' ? <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" class={className} aria-hidden="true"><path d="M20.45 2H3.55C2.7 2 2 2.67 2 3.5v17c0 .83.7 1.5 1.55 1.5h16.9c.86 0 1.55-.67 1.55-1.5v-17c0-.83-.69-1.5-1.55-1.5ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.45 7.9a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42Zm12.31 10.85h-2.94V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.2-1.79 2.46v4.73H9.54V9.2h2.82v1.3h.04c.39-.74 1.35-1.52 2.78-1.52 2.97 0 3.58 1.95 3.58 4.48v5.29Z"/></svg> : <Component size={size} stroke-width={strokeWidth} class={className} aria-hidden="true" />}
+{name === 'github' || name === 'github-white' ? <img src={assetHref(`/images/logos/github-invertocat-${name === 'github-white' ? 'white' : 'black'}.svg`)} width={size} height={Math.round(size * 96 / 98)} class={className} alt="" aria-hidden="true" /> : name === 'linkedin' || name === 'linkedin-white' ? <img src={assetHref(`/images/logos/${name === 'linkedin-white' ? 'linkedin-in-white' : 'linkedin-in-blue'}.png`)} width={size} height={Math.round(size * (name === 'linkedin-white' ? 779 / 840 : 540 / 635))} class={className} alt="" aria-hidden="true" /> : <Component size={size} stroke-width={strokeWidth} class={className} aria-hidden="true" />}

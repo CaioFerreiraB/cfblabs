@@ -1,9 +1,10 @@
 ---
 import '@fontsource-variable/manrope';
 import type { Locale, PageName } from '../lib/content';
-import { site } from '../lib/content';
-import { copy, pageHref } from '../lib/i18n';
+import { footer, site } from '../lib/content';
+import { assetHref, copy, pageHref } from '../lib/i18n';
 import Header from '../components/Header.astro';
+import Icon from '../components/Icon.astro';
 import '../styles/global.css';
 
 interface Props { locale: Locale; page: PageName; title: string; description: string; hero?: boolean; }
@@ -19,6 +20,7 @@ const otherLocale: Locale = locale === 'en' ? 'pt' : 'en';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content={hero ? '#06182b' : '#f5f7fa'} />
     <meta name="description" content={description} />
+    <link rel="icon" type="image/x-icon" href={assetHref('/cfblabs-icon.ico')} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={locale === 'en' ? 'pt' : 'en'} href={new URL(pageHref(otherLocale, page), Astro.site).toString()} />
     <link rel="alternate" hreflang={locale} href={canonical} />
@@ -29,6 +31,23 @@ const otherLocale: Locale = locale === 'en' ? 'pt' : 'en';
     <a class="skip-link" href="#main-content">{t.skip}</a>
     <Header locale={locale} page={page} light={hero} />
     <main id="main-content"><slot /></main>
-    <footer class="site-footer"><span>{site.brandName}</span><span>{t.footer}</span><span>© {new Date().getFullYear()}</span></footer>
+    <footer class="site-footer">
+      <div class="footer-main container">
+        <div class="footer-copy">
+          <p class="footer-call">{footer.call[locale]}</p>
+          <h2>{footer.title[locale]}</h2>
+          <p class="footer-subtitle">{footer.subtitle[locale]}</p>
+        </div>
+        <div class="footer-actions">
+          <a class="button button-primary" href={pageHref(locale, 'contact')}>{footer.contactLabel[locale]}<Icon name="arrow-right" size={18} /></a>
+          <nav class="footer-social" aria-label={t.footerSocial}>
+            <a href={`mailto:${site.email}`} aria-label={t.email}><Icon name="mail" size={23} /></a>
+            <a href={site.linkedin} aria-label={t.linkedin} target="_blank" rel="noopener noreferrer"><Icon name="linkedin-white" size={26} /></a>
+            <a href={site.github} aria-label={t.github} target="_blank" rel="noopener noreferrer"><Icon name="github-white" size={30} /></a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bottom"><div class="container"><span>{site.brandName}</span><span>© {new Date().getFullYear()}</span></div></div>
+    </footer>
   </body>
 </html>

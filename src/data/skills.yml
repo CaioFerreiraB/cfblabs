@@ -4,8 +4,8 @@ groups:
       en: Data and programming
       pt: Dados e programação
     items:
-      en: [Python, SQL, PySpark]
-      pt: [Python, SQL, PySpark]
+      en: [Python, SQL, PySpark, Databricks]
+      pt: [Python, SQL, PySpark, Databricks]
   - id: ai
     label:
       en: AI and machine learning
@@ -18,8 +18,8 @@ groups:
       en: Visualization and BI
       pt: Visualização e BI
     items:
-      en: [Tableau, Power BI, Data visualization]
-      pt: [Tableau, Power BI, Visualização de dados]
+      en: [Tableau, Power BI, ThoughtSpot]
+      pt: [Tableau, Power BI, ThoughtSpot]
   - id: risk
     label:
       en: Data and risk

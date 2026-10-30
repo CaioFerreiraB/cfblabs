@@ -5,4 +5,5 @@
 - [x] T3 (R1-R6): Implement shared layouts and the four bilingual views.
 - [x] T4 (R2, R4): Add local placeholder imagery and the four verified project links.
 - [x] T5 (R1-R8): Add Playwright coverage and GitHub Actions build and deployment.
-- [ ] T6 (R8): Review the temporary GitHub Pages URL, then configure the custom domain and Cloudflare DNS.
+- [x] T6 (R8): Review the temporary GitHub Pages URL, then configure the custom domain and Cloudflare DNS.
+- [x] T7 (R3, R7): Separate research experience into its own validated YAML section and update both locales.

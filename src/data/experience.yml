@@ -9,11 +9,20 @@ entries:
     current: true
     description:
       en:
-        - Improved automated support resolution from 10% to 91% while maintaining marketplace chargebacks around 0.07% and approvals around 92%.
-        - Led more automated and observable antifraud operations across product, engineering, data, and operations.
+        - Improved automated support resolution from 10% to 91%, while keeping marketplace chargebacks around 0.07% and approvals around 92% through fraud-prevention rules, 3DS and biometric challenge flows, and decline recovery
+        - Led technical direction for projects that made antifraud operations more automated, observable and
+          scalable, working with Product, Engineering, Data and Operations
+        - Used data analysis, monitoring, and real-time alerting to identify emerging fraud patterns and improve
+          fraud-prevention decisions
+        - Bridged business, product, engineering, and data teams to turn fraud insights into rules, platform
+          improvements, and operational decisions
+        - Used automation, LLMs, and generative AI to speed up investigation and support practical decision-making
       pt:
-        - Elevou a resolução automatizada do atendimento de 10% para 91%, mantendo chargebacks próximos de 0,07% e aprovações em torno de 92%.
-        - Liderou iniciativas para tornar a operação antifraude mais automatizada e observável com produto, engenharia, dados e operações.
+        - Elevou a resolução automatizada do atendimento de 10% para 91%, mantendo chargebacks do marketplace próximos de 0,07% e aprovações em torno de 92% por meio de regras de prevenção a fraudes, fluxos de desafio com 3DS e biometria e recuperação de recusas.
+        - Liderou a direção técnica de projetos que tornaram as operações antifraude mais automatizadas, observáveis e escaláveis, em colaboração com Produto, Engenharia, Dados e Operações.
+        - Usou análise de dados, monitoramento e alertas em tempo real para identificar padrões emergentes de fraude e melhorar as decisões de prevenção.
+        - Conectou equipes de negócios, produto, engenharia e dados para transformar análises de fraude em regras, melhorias na plataforma e decisões operacionais.
+        - Usou automação, LLMs e IA generativa para acelerar investigações e apoiar decisões práticas.
   - id: ifood-senior
     institution: iFood
     role:
@@ -23,8 +32,21 @@ entries:
     end: 2024-08
     current: false
     description:
-      en: Investigated fraud patterns, evaluated data providers through backtesting, and refined rules and decision engines.
-      pt: Investigou padrões de fraude, avaliou fornecedores de dados por backtesting e aprimorou regras e motores de decisão.
+      en:
+        - Investigated emerging fraud patterns and worked with Product and Engineering teams to close
+          vulnerabilities and reduce chargeback exposure
+        - Evaluated third-party data providers through backtesting, measuring fraud capture and false positives to
+          support build-versus-buy decisions
+        - Designed and refined rules and decision engines, including challenge flows, and conducted impact
+          analysis
+        - Explored geolocation signals to enrich risk assessment
+      pt:
+        - Investigou padrões emergentes de fraude e trabalhou com as equipes de Produto e Engenharia para corrigir
+          vulnerabilidades e reduzir a exposição a chargebacks
+        - Avaliou fornecedores externos de dados por meio de backtesting, medindo a detecção de fraudes e os falsos
+          positivos para embasar decisões entre desenvolver internamente ou contratar
+        - Projetou e aprimorou regras e motores de decisão, incluindo fluxos de desafio, e analisou seus impactos
+        - Explorou sinais de geolocalização para enriquecer a avaliação de risco
   - id: ifood-analyst
     institution: iFood
     role:
@@ -34,8 +56,23 @@ entries:
     end: 2023-01
     current: false
     description:
-      en: Built dashboards and analyzed fraud patterns and chargebacks with SQL and PySpark to guide prevention controls.
-      pt: Criou dashboards e analisou padrões de fraude e chargebacks com SQL e PySpark para orientar controles de prevenção.
+      en:
+        - Analyzed fraud and chargeback patterns with SQL and PySpark to guide prevention controls.
+        - Designed, documented, and maintained fraud rules across different business units
+        - Built and used dashboards to monitor fraud-prevention rule performance, identifying rules to adjust, retire,
+          or create
+        - Analyzed fraud patterns and chargeback data with SQL and PySpark to support decisions on new controls
+        - Contributed to discovery and usability testing for internal tooling, technically analyzing solutions and
+          bringing the fraud analyst’s perspective into product decisions
+      pt:
+        - Analisou padrões de fraude e chargebacks com SQL e PySpark para orientar controles de prevenção
+        - Projetou, documentou e manteve regras antifraude em diferentes unidades de negócio
+        - Criou e utilizou dashboards para monitorar o desempenho das regras de prevenção a fraudes, identificando
+          regras a ajustar, desativar ou criar
+        - Analisou padrões de fraude e dados de chargebacks com SQL e PySpark para apoiar decisões sobre novos
+          controles
+        - Contribuiu para a descoberta e os testes de usabilidade de ferramentas internas, analisando tecnicamente
+          as soluções e trazendo a perspectiva da análise de fraudes para as decisões de produto
   - id: cielo-analyst
     institution: Cielo
     role:
@@ -45,8 +82,23 @@ entries:
     end: 2022-01
     current: false
     description:
-      en: Developed data products and market indicators from transaction data, using Python and SQL to scale analysis.
-      pt: Desenvolveu produtos de dados e indicadores de mercado a partir de transações, usando Python e SQL para ampliar as análises.
+      en:
+        - Developed data-monetization products from Cielo’s transaction data, turning payment activity into market
+          intelligence across multiple economic sectors
+        - Analyzed retail growth, shopping malls, neighbourhoods, and business performance, including
+          benchmarking against comparable establishments
+        - Designed market indicators and data models to track retail trends and measure economic performance
+          across sectors
+        - Introduced Python alongside SQL to automate analytical workflows and scale data-product development
+      pt:
+        - Desenvolveu produtos de monetização de dados a partir das transações da Cielo, transformando a atividade
+          de pagamentos em inteligência de mercado para diversos setores da economia
+        - Analisou o crescimento do varejo, shopping centers, bairros e o desempenho de negócios, incluindo
+          comparações com estabelecimentos similares
+        - Projetou indicadores de mercado e modelos de dados para acompanhar tendências do varejo e medir o
+          desempenho econômico de diferentes setores
+        - Introduziu Python junto ao SQL para automatizar fluxos de análise e ampliar o desenvolvimento de
+          produtos de dados
   - id: cielo-intern
     institution: Cielo
     role:
@@ -56,27 +108,12 @@ entries:
     end: 2021-05
     current: false
     description:
-      en: Produced market insights and visualizations with SQL, Python, Tableau, and Power BI.
-      pt: Produziu análises de mercado e visualizações com SQL, Python, Tableau e Power BI.
-  - id: usp-researcher
-    institution: University of São Paulo (USP)
-    role:
-      en: Associate Researcher
-      pt: Pesquisador Associado
-    start: 2021-01
-    end: 2021-07
-    current: false
-    description:
-      en: Studied deep-learning methods for classifying bird, frog, and insect vocalizations in acoustic data.
-      pt: Pesquisou métodos de aprendizado profundo para classificar vocalizações de aves, sapos e insetos em dados acústicos.
-  - id: lancaster-researcher
-    institution: Lancaster University
-    role:
-      en: Visiting Researcher
-      pt: Pesquisador Visitante
-    start: 2018-09
-    end: 2020-02
-    current: false
-    description:
-      en: Developed a reinforcement-learning model for autonomous vehicles in simulation using Python and PyTorch.
-      pt: Desenvolveu um modelo de aprendizado por reforço para veículos autônomos em simulação com Python e PyTorch.
+      en:
+        - Analyzed Cielo’s transaction data to generate market insights and visualizations tailored to client needs
+        - Used SQL and Python for data extraction and analysis, and Tableau and Power BI to develop dashboards
+          and communicate findings
+      pt:
+        - Analisou dados transacionais da Cielo para gerar informações de mercado e visualizações adaptadas às
+          necessidades dos clientes
+        - Usou SQL e Python para extração e análise de dados, além de Tableau e Power BI para criar dashboards e
+          comunicar resultados

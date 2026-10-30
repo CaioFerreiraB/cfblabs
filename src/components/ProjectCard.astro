@@ -8,7 +8,9 @@ interface Props { project: (typeof projects)[number]; locale: Locale; }
 const { project, locale } = Astro.props;
 ---
 <a class="project-card" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`${copy[locale].openProject} ${project.name} (GitHub)`}>
-  <span class="project-card-image"><img src={assetHref(project.cover)} alt="" loading="lazy" /></span>
+  <span class:list={['project-card-image', { 'project-card-image--logo': project.cover.type === 'logo' }]} style={project.cover.type === 'logo' ? `background-color: ${project.cover.backgroundColor}` : undefined}>
+    <img src={assetHref(project.cover.type === 'photo' ? project.cover.photo : project.cover.logo)} alt="" loading="lazy" />
+  </span>
   <span class="project-card-content">
     <span class="project-card-heading"><strong>{project.name}</strong><Icon name="arrow-up-right" size={17} /></span>
     <span class="project-card-description">{project.description[locale]}</span>

@@ -1,0 +1,41 @@
+entries:
+  - id: usp-researcher
+    institution: University of São Paulo (USP)
+    role:
+      en: Associate Researcher
+      pt: Pesquisador Associado
+    start: 2021-01
+    end: 2021-07
+    current: false
+    description:
+      en:
+        - Investigated deep-learning approaches for ecological acoustic event classification
+        - Achieved 87% accuracy with convolutional neural networks and 90% with feature extraction combined with
+          traditional classifiers
+        - Classified bird, frog, and insect vocalizations from acoustic data
+      pt:
+        - Investigou abordagens de aprendizado profundo para classificar eventos acústicos ecológicos
+        - Obteve 87% de acurácia com redes neurais convolucionais e 90% com extração de características combinada a
+          classificadores tradicionais
+        - Classificou vocalizações de aves, sapos e insetos em dados acústicos
+  - id: lancaster-researcher
+    institution: Lancaster University
+    role:
+      en: Visiting Researcher
+      pt: Pesquisador Visitante
+    start: 2018-09
+    end: 2020-02
+    current: false
+    description:
+      en:
+        - Developed a reinforcement-learning model using Double Deep Q-Networks and convolutional neural
+          networks to control autonomous vehicles from simulated images
+        - Implemented and evaluated the model in SUMO using Python and PyTorch, training vehicles to navigate
+          intersections while avoiding collisions
+        - Contributed to an open-source, documented implementation for reproducible research
+      pt:
+        - Desenvolveu um modelo de aprendizado por reforço com Double Deep Q-Networks e redes neurais convolucionais
+          para controlar veículos autônomos a partir de imagens simuladas
+        - Implementou e avaliou o modelo no SUMO com Python e PyTorch, treinando veículos para atravessar
+          cruzamentos e evitar colisões
+        - Contribuiu para uma implementação de código aberto e documentada para permitir a reprodução da pesquisa

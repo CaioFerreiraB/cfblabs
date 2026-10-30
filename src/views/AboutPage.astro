@@ -1,6 +1,6 @@
 ---
 import type { Locale } from '../lib/content';
-import { profile, education, experience, volunteering, skills } from '../lib/content';
+import { profile, education, experience, research, volunteering, skills } from '../lib/content';
 import { copy, assetHref } from '../lib/i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TimelineSection from '../components/TimelineSection.astro';
@@ -11,7 +11,8 @@ const { locale } = Astro.props;
 const t = copy[locale];
 const sections = [
   ['profile', t.aboutTitle], ['focus', t.focusTitle], ['education', t.educationTitle],
-  ['experience', t.experienceTitle], ['volunteering', t.volunteeringTitle], ['skills', t.skillsTitle],
+  ['experience', t.experienceTitle], ['research', t.researchTitle],
+  ['volunteering', t.volunteeringTitle], ['skills', t.skillsTitle],
 ] as const;
 ---
 <BaseLayout locale={locale} page="about" title={t.aboutTitle} description={profile.introduction[locale]}>
@@ -22,7 +23,7 @@ const sections = [
     </aside>
     <div class="about-content">
       <section class="about-intro" id="profile" aria-labelledby="about-name">
-        <div class="portrait-wrap"><img src={assetHref(profile.photo)} alt={t.imageNote} /><span>{t.imageNote}</span></div>
+        <div class="portrait-hitbox"><div class="portrait-wrap"><img src={assetHref(profile.photo)} alt={profile.name} /></div></div>
         <div class="about-intro-copy"><p class="intro-greeting">{t.aboutLead}</p><h1 id="about-name">{profile.name}</h1><p class="about-summary">{profile.introduction[locale]}</p><p class="location-line"><Icon name="map-pin" size={17} />{profile.location.city}, {profile.location.state}, {profile.location.country[locale]}</p></div>
       </section>
       <section class="about-section focus-section" id="focus" aria-labelledby="focus-heading">
@@ -31,8 +32,27 @@ const sections = [
       </section>
       <TimelineSection id="education" title={t.educationTitle} icon="graduation-cap" entries={education.entries} locale={locale} />
       <TimelineSection id="experience" title={t.experienceTitle} icon="briefcase-business" entries={experience.entries} locale={locale} />
+      <TimelineSection id="research" title={t.researchTitle} icon="microscope" entries={research.entries} locale={locale} />
       <TimelineSection id="volunteering" title={t.volunteeringTitle} icon="heart-handshake" entries={volunteering.entries} locale={locale} />
       <section class="about-section skills-section" id="skills" aria-labelledby="skills-heading"><h2 id="skills-heading">{t.skillsTitle}</h2><div class="skills-grid">{skills.groups.map((group) => <div class="skill-group"><h3>{group.label[locale]}</h3><div class="skill-list">{group.items[locale].map((item) => <span>{item}</span>)}</div></div>)}</div></section>
     </div>
   </div>
 </BaseLayout>
+<script>
+  const portrait = document.querySelector<HTMLElement>('.portrait-hitbox');
+  const motion = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+  if (portrait) {
+    const resetPortrait = () => {
+      portrait.style.removeProperty('--tilt-x');
+      portrait.style.removeProperty('--tilt-y');
+    };
+    portrait.addEventListener('pointermove', (event) => {
+      if (!motion.matches) return;
+      const rect = portrait.getBoundingClientRect();
+      portrait.style.setProperty('--tilt-x', `${((rect.top + rect.height / 2 - event.clientY) / rect.height * 16).toFixed(1)}deg`);
+      portrait.style.setProperty('--tilt-y', `${((event.clientX - rect.left - rect.width / 2) / rect.width * 16).toFixed(1)}deg`);
+    });
+    portrait.addEventListener('pointerleave', resetPortrait);
+    motion.addEventListener('change', resetPortrait);
+  }
+</script>

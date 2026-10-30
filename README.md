@@ -17,17 +17,36 @@ Content lives in `src/data/*.yml`. All code, configuration keys, test names, and
 
 | File | What it controls |
 | --- | --- |
-| `src/data/site.yml` | Brand, contact links, hero copy, and hero image |
+| `src/data/site.yml` | Brand, contact links, hero content, and Home about summary |
+| `src/data/footer.yml` | Footer call, title, subtitle, and contact button label |
 | `src/data/profile.yml` | About page introduction, portrait, location, and focus areas |
 | `src/data/education.yml` | Education entries |
 | `src/data/experience.yml` | Professional experience entries |
+| `src/data/research.yml` | Research experience entries |
 | `src/data/volunteering.yml` | Volunteer work entries |
 | `src/data/skills.yml` | Skill groups and items |
-| `src/data/projects.yml` | Project cards, links, cover images, tags, and featured status |
+| `src/data/projects.yml` | Project cards, links, photo or logo covers, tags, and featured status |
 
-Place images in `public/images/hero/`, `public/images/profile/`, `public/images/projects/`, or `public/images/logos/`. The current SVG files are placeholders. Reference a file from YAML with its public URL path, for example `image: /images/hero/my-photo.webp`, `photo: /images/profile/portrait.jpg`, `cover: /images/projects/maui.png`, or `logo: /images/logos/institution.svg`. Project entries marked `featured: true` appear on Home.
+Place images in `public/images/hero/`, `public/images/profile/`, `public/images/projects/`, or `public/images/logos/`. The current project SVG files are placeholders. Reference a file from YAML with its public URL path, for example `image: /images/hero/my-photo.webp`, `photo: /images/profile/portrait.jpg`, or `logo: /images/logos/institution.svg`. Project entries marked `featured: true` appear on Home.
+
+For a project cover, choose one of these shapes in `projects.yml`:
+
+```yml
+cover:
+  type: photo
+  photo: /images/projects/my-photo.webp
+```
+
+```yml
+cover:
+  type: logo
+  logo: /images/logos/my-project.svg
+  backgroundColor: '#123456'
+```
 
 Keep both `en` and `pt` values for translated fields. Image paths must point to existing local SVG, PNG, JPEG, or WebP files. Run `npm run check` and `npm run build` after content changes.
+
+The hero title and subtitle are lists of text segments in each language. Add `color: '#52dfb1'` to any segment to color that word or phrase; omit `color` for the default white. Keep spaces inside segment text where words meet. The Home summary, education/experience/interests highlights, and Beyond work heading and link are editable in `site.yml`. Beyond work entries come from `profile.yml` focus areas. Their `icon` values use the available names in `src/components/Icon.astro`.
 
 ## Validation
 

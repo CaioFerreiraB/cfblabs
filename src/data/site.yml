@@ -3,10 +3,68 @@ email: caiofbernardo@gmail.com
 linkedin: https://www.linkedin.com/in/caioferreirab/
 github: https://github.com/CaioFerreiraB
 hero:
+  greeting:
+    en: HI, I'M
+    pt: OI! EU SOU
   title:
-    en: Data for people, nature, and real impact.
-    pt: Dados para pessoas, natureza e impacto real.
+    en:
+      - text: 'Caio '
+      - text: Ferreira
+    pt:
+      - text: 'Caio '
+      - text: Ferreira
   subtitle:
-    en: Data and AI product strategist building practical solutions at the intersection of analytics, environmental data, and technology.
-    pt: Estrategista de produtos de dados e IA, criando soluções práticas na interseção entre análise de dados, meio ambiente e tecnologia.
-  image: /images/hero/mountain-journey.svg
+    en:
+      - text: 'I turn ideas into technology, data, and '
+      - text: impact.
+        color: '#52dfb1'
+    pt:
+      - text: 'Transformo ideias em tecnologia, dados e '
+      - text: impacto.
+        color: '#52dfb1'
+  description:
+    en: I am a computer scientist, data specialist, and developer who enjoys turning complex problems into practical solutions. Here I share projects and lessons from artificial intelligence to sustainability.
+    pt: Sou cientista da computação, especialista em dados e desenvolvedor apaixonado por transformar problemas complexos em soluções práticas. Aqui compartilho projetos e aprendizados — da inteligência artificial à sustentabilidade.
+  image: /images/hero/sunburst.jpg
+homeAbout:
+  eyebrow:
+    en: ABOUT ME
+    pt: SOBRE MIM
+  title:
+    en: Technology for a more sustainable world
+    pt: Tecnologia para um mundo mais sustentável
+  description:
+    en: I studied Computer Science at USP and completed a master's in Data Visualization with research in ecoacoustics. I work with data analysis, product development, and fraud prevention, always seeking to connect technology, people, and positive impact.
+    pt: Sou bacharel em Ciência da Computação pela USP e mestre em Visualização de Dados, com pesquisa em ecoacústica. Trabalho com análise de dados, desenvolvimento de produtos e prevenção a fraudes, sempre buscando unir tecnologia, pessoas e impacto positivo.
+  highlights:
+    education:
+      icon: graduation-cap
+      label:
+        en: USP
+        pt: USP
+      detail:
+        en: Bachelor's in Computer Science and master's in Data Visualization.
+        pt: Bacharelado em Ciência da Computação e mestrado em Visualização de Dados.
+    experience:
+      icon: briefcase-business
+      label:
+        en: Experience
+        pt: Experiência
+      detail:
+        en: Data, fraud prevention, and digital products.
+        pt: Dados, prevenção a fraudes e produtos digitais.
+    interests:
+      icon: trees
+      label:
+        en: Interests
+        pt: Interesses
+      detail:
+        en: Sustainability, nature, and society.
+        pt: Sustentabilidade, natureza e sociedade.
+  beyondWork:
+    title:
+      en: Beyond work
+      pt: Além do trabalho
+    linkLabel:
+      en: Read my full story
+      pt: Conheça minha história completa

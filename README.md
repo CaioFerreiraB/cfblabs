@@ -13,6 +13,22 @@ npm run dev
 
 Content lives in `src/data/*.yml`. All code, configuration keys, test names, and technical documentation are written in English. Portuguese appears only in visitor-facing translations.
 
+## Content and images
+
+| File | What it controls |
+| --- | --- |
+| `src/data/site.yml` | Brand, contact links, hero copy, and hero image |
+| `src/data/profile.yml` | About page introduction, portrait, location, and focus areas |
+| `src/data/education.yml` | Education entries |
+| `src/data/experience.yml` | Professional experience entries |
+| `src/data/volunteering.yml` | Volunteer work entries |
+| `src/data/skills.yml` | Skill groups and items |
+| `src/data/projects.yml` | Project cards, links, cover images, tags, and featured status |
+
+Place images in `public/images/hero/`, `public/images/profile/`, `public/images/projects/`, or `public/images/logos/`. The current SVG files are placeholders. Reference a file from YAML with its public URL path, for example `image: /images/hero/my-photo.webp`, `photo: /images/profile/portrait.jpg`, `cover: /images/projects/maui.png`, or `logo: /images/logos/institution.svg`. Project entries marked `featured: true` appear on Home.
+
+Keep both `en` and `pt` values for translated fields. Image paths must point to existing local SVG, PNG, JPEG, or WebP files. Run `npm run check` and `npm run build` after content changes.
+
 ## Validation
 
 ```sh
@@ -30,6 +46,6 @@ Playwright Test is a project dependency. Install Graphify and run `graphify code
 
 ## Deployment
 
-The GitHub Actions workflow builds and tests before deploying the `dist/` directory. It now targets `https://cfblabs.com.br` at the domain root. GitHub Pages has the custom domain configured; Cloudflare DNS and HTTPS certificate issuance are the remaining cutover steps.
+The GitHub Actions workflow builds and tests every pull request targeting `main`, but does not deploy it. A successful push to `main`, including a merged pull request, automatically deploys `dist/` to GitHub Pages. Manual `workflow_dispatch` runs also deploy. The site uses `https://cfblabs.com.br` with HTTPS enforcement enabled.
 
 See [the custom-domain cutover guide](docs/domain-cutover.md) for the exact DNS records and verification sequence.

@@ -20,3 +20,10 @@ GitHub Pages is configured for `cfblabs.com.br`, and the build targets the domai
 6. Enable **Enforce HTTPS** in GitHub Pages when available. Check the apex domain, the `www` redirect, all eight routes, CSS, images, and the language switch over HTTPS.
 
 GitHub Pages custom-domain settings, rather than a `CNAME` file in the source repository, control the domain for this GitHub Actions deployment. DNS propagation and certificate issuance may take time. If the cutover must be reversed, restore the prior apex A record and `www` CNAME, remove the custom domain from GitHub Pages, and restore the temporary URL build settings.
+
+## Verification status (2026-10-30)
+
+- Public resolvers return all four GitHub Pages A records for the apex and `caioferreirab.github.io` for `www`.
+- GitHub Pages serves the site over HTTP at the custom domain.
+- GitHub reports the TLS certificate request as `new`; HTTPS enforcement remains unavailable until the certificate is issued.
+- The local resolver still caches the previous apex address, so local browser checks may briefly reach the former server.

@@ -1,0 +1,17 @@
+---
+import type { Locale } from '../lib/content';
+import { copy, assetHref } from '../lib/i18n';
+import Icon from './Icon.astro';
+import type { projects } from '../lib/content';
+
+interface Props { project: (typeof projects)[number]; locale: Locale; }
+const { project, locale } = Astro.props;
+---
+<a class="project-card" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`${copy[locale].openProject} ${project.name} (GitHub)`}>
+  <span class="project-card-image"><img src={assetHref(project.cover)} alt="" loading="lazy" /></span>
+  <span class="project-card-content">
+    <span class="project-card-heading"><strong>{project.name}</strong><Icon name="arrow-up-right" size={17} /></span>
+    <span class="project-card-description">{project.description[locale]}</span>
+    <span class="project-tags">{project.tags[locale].map((tag) => <span>{tag}</span>)}</span>
+  </span>
+</a>

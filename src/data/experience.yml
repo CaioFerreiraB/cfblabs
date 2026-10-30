@@ -1,0 +1,82 @@
+entries:
+  - id: ifood-specialist
+    institution: iFood
+    role:
+      en: Marketplace Risk Specialist
+      pt: Especialista em Risco de Marketplace
+    start: 2024-08
+    end: null
+    current: true
+    description:
+      en:
+        - Improved automated support resolution from 10% to 91% while maintaining marketplace chargebacks around 0.07% and approvals around 92%.
+        - Led more automated and observable antifraud operations across product, engineering, data, and operations.
+      pt:
+        - Elevou a resolução automatizada do atendimento de 10% para 91%, mantendo chargebacks próximos de 0,07% e aprovações em torno de 92%.
+        - Liderou iniciativas para tornar a operação antifraude mais automatizada e observável com produto, engenharia, dados e operações.
+  - id: ifood-senior
+    institution: iFood
+    role:
+      en: Senior Marketplace Risk Analyst
+      pt: Analista Sênior de Risco de Marketplace
+    start: 2023-01
+    end: 2024-08
+    current: false
+    description:
+      en: Investigated fraud patterns, evaluated data providers through backtesting, and refined rules and decision engines.
+      pt: Investigou padrões de fraude, avaliou fornecedores de dados por backtesting e aprimorou regras e motores de decisão.
+  - id: ifood-analyst
+    institution: iFood
+    role:
+      en: Marketplace Risk Analyst
+      pt: Analista de Risco de Marketplace
+    start: 2022-01
+    end: 2023-01
+    current: false
+    description:
+      en: Built dashboards and analyzed fraud patterns and chargebacks with SQL and PySpark to guide prevention controls.
+      pt: Criou dashboards e analisou padrões de fraude e chargebacks com SQL e PySpark para orientar controles de prevenção.
+  - id: cielo-analyst
+    institution: Cielo
+    role:
+      en: Business Analytics Analyst
+      pt: Analista de Business Analytics
+    start: 2021-05
+    end: 2022-01
+    current: false
+    description:
+      en: Developed data products and market indicators from transaction data, using Python and SQL to scale analysis.
+      pt: Desenvolveu produtos de dados e indicadores de mercado a partir de transações, usando Python e SQL para ampliar as análises.
+  - id: cielo-intern
+    institution: Cielo
+    role:
+      en: Data Analysis Intern
+      pt: Estagiário em Análise de Dados
+    start: 2020-02
+    end: 2021-05
+    current: false
+    description:
+      en: Produced market insights and visualizations with SQL, Python, Tableau, and Power BI.
+      pt: Produziu análises de mercado e visualizações com SQL, Python, Tableau e Power BI.
+  - id: usp-researcher
+    institution: University of São Paulo (USP)
+    role:
+      en: Associate Researcher
+      pt: Pesquisador Associado
+    start: 2021-01
+    end: 2021-07
+    current: false
+    description:
+      en: Studied deep-learning methods for classifying bird, frog, and insect vocalizations in acoustic data.
+      pt: Pesquisou métodos de aprendizado profundo para classificar vocalizações de aves, sapos e insetos em dados acústicos.
+  - id: lancaster-researcher
+    institution: Lancaster University
+    role:
+      en: Visiting Researcher
+      pt: Pesquisador Visitante
+    start: 2018-09
+    end: 2020-02
+    current: false
+    description:
+      en: Developed a reinforcement-learning model for autonomous vehicles in simulation using Python and PyTorch.
+      pt: Desenvolveu um modelo de aprendizado por reforço para veículos autônomos em simulação com Python e PyTorch.

@@ -1,0 +1,48 @@
+name: Caio Ferreira Bernardo
+photo: /images/profile/portrait-placeholder.svg
+location:
+  city: Barueri
+  state: São Paulo
+  country:
+    en: Brazil
+    pt: Brasil
+introduction:
+  en: I turn complex data into products and decisions. My work spans fraud prevention, analytics, applied AI, and research in ecoacoustics and biodiversity monitoring.
+  pt: Transformo dados complexos em produtos e decisões. Minha trajetória reúne prevenção a fraudes, análise de dados, IA aplicada e pesquisa em ecoacústica e monitoramento da biodiversidade.
+focusAreas:
+  - id: data
+    label:
+      en: Data and visualization
+      pt: Dados e visualização
+    detail:
+      en: Making information useful and clear.
+      pt: Transformar informação em algo útil e claro.
+    icon: chart-no-axes-combined
+    color: '#2563eb'
+  - id: environment
+    label:
+      en: Environment
+      pt: Meio ambiente
+    detail:
+      en: Ecoacoustics and biodiversity.
+      pt: Ecoacústica e biodiversidade.
+    icon: trees
+    color: '#15803d'
+  - id: development
+    label:
+      en: Development
+      pt: Desenvolvimento
+    detail:
+      en: Data products and applied AI.
+      pt: Produtos de dados e IA aplicada.
+    icon: code-xml
+    color: '#7c3aed'
+  - id: community
+    label:
+      en: Community
+      pt: Comunidade
+    detail:
+      en: Scouting and volunteer work.
+      pt: Escotismo e voluntariado.
+    icon: users-round
+    color: '#d97706'

@@ -1,0 +1,14 @@
+---
+import type { Locale } from '../lib/content';
+import { projects } from '../lib/content';
+import { copy } from '../lib/i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+---
+<BaseLayout locale={locale} page="projects" title={t.projectsTitle} description={t.projectsLead}>
+  <div class="page-shell container"><div class="page-heading"><h1>{t.projectsTitle}</h1><p>{t.projectsLead}</p></div><div class="project-grid project-grid--all">{projects.map((project) => <ProjectCard project={project} locale={locale} />)}</div></div>
+</BaseLayout>

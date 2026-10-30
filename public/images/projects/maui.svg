@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-label="Abstract ecoacoustic spectrogram placeholder">
+  <defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#080d31"/><stop offset=".55" stop-color="#331078"/><stop offset="1" stop-color="#f34b08"/></linearGradient><linearGradient id="line" x2="0" y2="1"><stop stop-color="#e926c9" stop-opacity="0"/><stop offset=".7" stop-color="#f63978" stop-opacity=".7"/><stop offset="1" stop-color="#ffe337"/></linearGradient><pattern id="p" width="19" height="470" patternUnits="userSpaceOnUse"><path d="M3 460V100M8 460V230M14 460V60" stroke="url(#line)" stroke-width="2.8" opacity=".7"/></pattern></defs>
+  <path fill="url(#bg)" d="M0 0h900v470H0z"/>
+  <path d="M0 440q30-48 55-3t55-5 70 1 56-15 75 9 85-16 90 18 78-36 72 20 63-7 71 4 75-4 55 9v65H0Z" fill="#ffb916" opacity=".75"/>
+  <path fill="url(#p)" d="M0 0h900v470H0z"/>
+  <path d="M0 300h900M0 350h900M0 405h900" stroke="#e951cb" stroke-opacity=".25"/>
+</svg>

@@ -1,0 +1,36 @@
+---
+import type { Locale } from '../lib/content';
+import { copy, formatMonth, assetHref } from '../lib/i18n';
+import Icon from './Icon.astro';
+
+interface Entry {
+  id: string;
+  institution: string;
+  title?: { en: string; pt: string };
+  role?: { en: string; pt: string };
+  start: string;
+  end: string | null;
+  current: boolean;
+  description: { en: string | string[]; pt: string | string[] };
+  logo?: string;
+}
+interface Props { id: string; title: string; icon: string; entries: Entry[]; locale: Locale; }
+const { id, title, icon, entries, locale } = Astro.props;
+---
+<section class="about-section timeline-section" id={id} aria-labelledby={`${id}-heading`}>
+  <h2 id={`${id}-heading`}>{title}</h2>
+  <div class="timeline">
+    {entries.map((entry) => {
+      const detail = entry.description[locale];
+      return <article class="timeline-item">
+        <div class="timeline-icon">{entry.logo ? <img src={assetHref(entry.logo)} alt="" /> : <Icon name={icon} size={21} />}</div>
+        <div class="timeline-content">
+          <h3>{(entry.title ?? entry.role)?.[locale]}</h3>
+          <p class="timeline-institution">{entry.institution}</p>
+          <p class="timeline-dates"><time datetime={entry.start}>{formatMonth(entry.start, locale)}</time> — {entry.current ? copy[locale].current : <time datetime={entry.end!}>{formatMonth(entry.end!, locale)}</time>}</p>
+          {Array.isArray(detail) ? <ul>{detail.map((item) => <li>{item}</li>)}</ul> : <p class="timeline-description">{detail}</p>}
+        </div>
+      </article>;
+    })}
+  </div>
+</section>

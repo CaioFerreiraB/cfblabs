@@ -1,0 +1,30 @@
+---
+import type { Locale, PageName } from '../lib/content';
+import { site } from '../lib/content';
+import { copy, pageHref } from '../lib/i18n';
+import Icon from './Icon.astro';
+
+interface Props { locale: Locale; page: PageName; light?: boolean; }
+const { locale, page, light = false } = Astro.props;
+const t = copy[locale];
+const otherLocale: Locale = locale === 'en' ? 'pt' : 'en';
+const pages: PageName[] = ['home', 'about', 'projects', 'contact'];
+---
+<header class:list={['site-header', { 'site-header--light': light }]}>
+  <div class="header-inner">
+    <a class="brand" href={pageHref(locale, 'home')} aria-label={`${site.brandName} — ${t.navigation.home}`}>
+      <span class="brand-mark" aria-hidden="true"><Icon name="trees" size={23} strokeWidth={2.1} /></span>
+      <span>{site.brandName}</span>
+    </a>
+    <nav class="desktop-nav" aria-label={locale === 'pt' ? 'Navegação principal' : 'Primary navigation'}>
+      {pages.map((item) => <a class:list={['nav-link', { active: page === item, 'nav-contact': item === 'contact' }]} href={pageHref(locale, item)} aria-current={page === item ? 'page' : undefined}>{t.navigation[item]}</a>)}
+    </nav>
+    <a class="language-switch" href={pageHref(otherLocale, page)} aria-label={t.switchLanguage}>{otherLocale.toUpperCase()}</a>
+    <details class="mobile-navigation">
+      <summary aria-label={locale === 'pt' ? 'Abrir menu' : 'Open menu'}><span></span><span></span><span></span></summary>
+      <nav aria-label={locale === 'pt' ? 'Navegação móvel' : 'Mobile navigation'}>
+        {pages.map((item) => <a href={pageHref(locale, item)} aria-current={page === item ? 'page' : undefined}>{t.navigation[item]}</a>)}
+      </nav>
+    </details>
+  </div>
+</header>

@@ -1,0 +1,23 @@
+entries:
+  - id: masters
+    institution: University of São Paulo (USP)
+    title:
+      en: Master's in Data Visualization
+      pt: Mestrado em Visualização de Dados
+    start: 2022-02
+    end: 2025-06
+    current: false
+    description:
+      en: Developed Maui, an open-source Python framework for visualizing ecoacoustic data to support biodiversity monitoring and ecological research.
+      pt: Desenvolveu o Maui, um framework Python de código aberto para visualizar dados ecoacústicos e apoiar o monitoramento da biodiversidade e a pesquisa ecológica.
+  - id: bachelors
+    institution: University of São Paulo (USP)
+    title:
+      en: Bachelor's in Computer Science
+      pt: Bacharelado em Ciência da Computação
+    start: 2016-01
+    end: 2021-06
+    current: false
+    description:
+      en: Completed a bachelor's degree in Computer Science.
+      pt: Concluiu o bacharelado em Ciência da Computação.

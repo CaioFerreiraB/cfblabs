@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-label="Mountain and forest illustration placeholder">
+  <defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#12344c"/><stop offset="1" stop-color="#0a2337"/></linearGradient></defs>
+  <path fill="url(#bg)" d="M0 0h900v470H0z"/>
+  <circle cx="699" cy="100" r="57" fill="#d7e8dd" opacity=".18"/>
+  <path d="M115 359 311 139l71 90 69-68 228 198Z" fill="#6aa7a0"/>
+  <path d="m311 139 71 90-32-13-30 23-29-28-36 11Zm140 22 78 90-43-15-26 23-32-31-33 8Z" fill="#eaf4e9"/>
+  <path d="M179 359 358 239l75 91 92-72 162 101Z" fill="#3b7777"/>
+  <path d="M100 358h700v45H100z" fill="#19474f"/>
+  <g fill="#e6f2e8"><path d="m153 342 23-95 23 95h-13l21 37h-62l20-37zm91 8 18-78 19 78h-11l19 30h-55l18-30zm419 4 18-82 20 82h-12l20 32h-58l20-32zm73-6 16-66 16 66h-10l17 31h-46l17-31z"/></g>
+</svg>

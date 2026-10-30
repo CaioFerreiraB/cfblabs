@@ -1,0 +1,33 @@
+---
+import type { Locale } from '../lib/content';
+import { site, profile, projects } from '../lib/content';
+import { copy, assetHref, pageHref } from '../lib/i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+const featured = projects.filter((project) => project.featured);
+---
+<BaseLayout locale={locale} page="home" title={t.navigation.home} description={site.hero.subtitle[locale]} hero>
+  <section class="hero" style={`--hero-image: url('${assetHref(site.hero.image)}')`}>
+    <div class="hero-shade"></div>
+    <div class="hero-content container">
+      <h1>{site.hero.title[locale]}</h1>
+      <p>{site.hero.subtitle[locale]}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#featured-projects">{t.heroPrimary}<Icon name="arrow-right" size={17} /></a>
+        <a class="button button-outline" href={pageHref(locale, 'about')}>{t.heroSecondary}</a>
+      </div>
+    </div>
+    <div class="hero-focus container" aria-label={t.focusTitle}>
+      {profile.focusAreas.map((area) => <span><Icon name={area.icon} size={17} />{area.label[locale]}</span>)}
+    </div>
+  </section>
+  <section class="featured-section container" id="featured-projects" aria-labelledby="featured-title">
+    <div class="section-heading"><h2 id="featured-title">{t.featuredTitle}</h2><a class="text-link" href={pageHref(locale, 'projects')}>{t.viewAll}<Icon name="arrow-right" size={17} /></a></div>
+    <div class="project-grid project-grid--featured">{featured.map((project) => <ProjectCard project={project} locale={locale} />)}</div>
+  </section>
+</BaseLayout>

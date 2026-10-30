@@ -1,0 +1,45 @@
+entries:
+  - id: scout-leader
+    institution: Professora Inah de Mello Scout Group
+    role:
+      en: Scout Leader, Rovers
+      pt: Chefe Escoteiro, Clã Pioneiro
+    start: 2026-06
+    end: null
+    current: true
+    description:
+      en: Lead educational and community-service activities for young adults aged 18–22.
+      pt: Lidera atividades educativas e de serviço comunitário para jovens de 18 a 22 anos.
+  - id: scout-tech-lead
+    institution: Professora Inah de Mello Scout Group
+    role:
+      en: Tech Lead
+      pt: Líder de Tecnologia
+    start: 2025-06
+    end: null
+    current: true
+    description:
+      en: Lead technology strategy, access management, nonprofit technology funding, and a custom management platform.
+      pt: Lidera estratégia de tecnologia, gestão de acessos, captação de recursos tecnológicos e uma plataforma própria de gestão.
+  - id: scout-president
+    institution: Professora Inah de Mello Scout Group
+    role:
+      en: President
+      pt: Presidente
+    start: 2024-01
+    end: 2024-12
+    current: false
+    description:
+      en: Coordinated 40 volunteers supporting 80 young people during the group's post-pandemic recovery.
+      pt: Coordenou 40 voluntários que apoiavam 80 jovens durante a recuperação do grupo após a pandemia.
+  - id: scout-events
+    institution: União dos Escoteiros do Brasil — São Paulo
+    role:
+      en: Events Coordinator
+      pt: Coordenador de Eventos
+    start: 2019-04
+    end: 2022-06
+    current: false
+    description:
+      en: Co-led a six-person team delivering approximately 80 events annually, including a four-day event for 1,500 participants.
+      pt: Coliderou uma equipe de seis pessoas em cerca de 80 eventos por ano, incluindo um evento de quatro dias para 1.500 participantes.

@@ -1,0 +1,45 @@
+projects:
+  - id: maui
+    name: Maui
+    description:
+      en: Open-source Python framework for interactive ecoacoustic data visualization.
+      pt: Framework Python de código aberto para visualizar dados ecoacústicos de forma interativa.
+    cover: /images/projects/maui.svg
+    tags:
+      en: [Python, Plotly, Ecoacoustics]
+      pt: [Python, Plotly, Ecoacústica]
+    url: https://github.com/maui-software/maui-software
+    featured: true
+  - id: mango
+    name: Mango
+    description:
+      en: Personal finance platform bringing accounts, budgets, goals, and investments together.
+      pt: Plataforma de finanças pessoais que reúne contas, orçamentos, objetivos e investimentos.
+    cover: /images/projects/mango.svg
+    tags:
+      en: [Web, Finance, Open Finance]
+      pt: [Web, Finanças, Open Finance]
+    url: https://github.com/CaioFerreiraB/mango
+    featured: true
+  - id: gris
+    name: Gris
+    description:
+      en: Management system for scout groups, activities, people, and operations.
+      pt: Sistema de gestão para grupos escoteiros, atividades, pessoas e operações.
+    cover: /images/projects/gris.svg
+    tags:
+      en: [Web, Management, Scouting]
+      pt: [Web, Gestão, Escotismo]
+    url: https://github.com/inah147/gris
+    featured: true
+  - id: axon
+    name: Axon
+    description:
+      en: Spec-driven agentic AI platform with a reusable core and domain packs.
+      pt: Plataforma de IA agêntica orientada por especificações, com núcleo reutilizável e módulos de domínio.
+    cover: /images/projects/axon.svg
+    tags:
+      en: [AI, Developer Tools, Spec-driven]
+      pt: [IA, Ferramentas de desenvolvimento, Orientado por especificações]
+    url: https://github.com/CaioFerreiraB/axon
+    featured: false

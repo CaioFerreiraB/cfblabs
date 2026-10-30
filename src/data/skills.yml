@@ -1,0 +1,29 @@
+groups:
+  - id: programming
+    label:
+      en: Data and programming
+      pt: Dados e programação
+    items:
+      en: [Python, SQL, PySpark]
+      pt: [Python, SQL, PySpark]
+  - id: ai
+    label:
+      en: AI and machine learning
+      pt: IA e aprendizado de máquina
+    items:
+      en: [LLM applications, Generative AI, Deep learning, Reinforcement learning]
+      pt: [Aplicações com LLMs, IA generativa, Aprendizado profundo, Aprendizado por reforço]
+  - id: visualization
+    label:
+      en: Visualization and BI
+      pt: Visualização e BI
+    items:
+      en: [Tableau, Power BI, Data visualization]
+      pt: [Tableau, Power BI, Visualização de dados]
+  - id: risk
+    label:
+      en: Data and risk
+      pt: Dados e risco
+    items:
+      en: [Fraud prevention, Decision engines, Risk analytics, Backtesting]
+      pt: [Prevenção a fraudes, Motores de decisão, Análise de risco, Backtesting]

@@ -1,0 +1,19 @@
+---
+import type { Locale } from '../lib/content';
+import { site } from '../lib/content';
+import { copy } from '../lib/i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+const channels = [
+  { icon: 'mail', label: t.email, value: site.email, href: `mailto:${site.email}` },
+  { icon: 'linkedin', label: t.linkedin, value: 'linkedin.com/in/caioferreirab', href: site.linkedin },
+  { icon: 'github', label: t.github, value: 'github.com/CaioFerreiraB', href: site.github },
+];
+---
+<BaseLayout locale={locale} page="contact" title={t.contactTitle} description={t.contactLead}>
+  <div class="page-shell container contact-page"><div class="page-heading"><h1>{t.contactTitle}</h1><p>{t.contactLead}</p></div><div class="contact-list">{channels.map((channel) => <a href={channel.href} target={channel.icon === 'mail' ? undefined : '_blank'} rel={channel.icon === 'mail' ? undefined : 'noopener noreferrer'}><span class="contact-icon"><Icon name={channel.icon} size={24} /></span><span class="contact-copy"><strong>{channel.label}</strong><span>{channel.value}</span></span><Icon name="arrow-up-right" size={20} /></a>)}</div></div>
+</BaseLayout>

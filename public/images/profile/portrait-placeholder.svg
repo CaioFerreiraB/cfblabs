@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" role="img" aria-label="Profile portrait placeholder">
+  <defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#9bd1f0"/><stop offset=".58" stop-color="#d6e9ed"/><stop offset="1" stop-color="#3e725e"/></linearGradient><linearGradient id="shirt" x2="0" y2="1"><stop stop-color="#163a4a"/><stop offset="1" stop-color="#071c2b"/></linearGradient></defs>
+  <path fill="url(#bg)" d="M0 0h600v720H0z"/>
+  <circle cx="462" cy="154" r="82" fill="#fff" opacity=".35"/>
+  <path d="M0 375 160 218 249 300 390 178l210 198v344H0Z" fill="#658e96" opacity=".58"/>
+  <path d="M0 448 135 333l124 97 186-176 155 160v306H0Z" fill="#356b75" opacity=".7"/>
+  <path d="M0 513 160 456l120 39 145-85 175 94v216H0Z" fill="#21545f"/>
+  <path d="M101 720c7-132 65-207 199-215 136 8 194 83 201 215Z" fill="url(#shirt)"/>
+  <path d="M246 480h108v86l-54 50-54-50z" fill="#deb497"/>
+  <ellipse cx="300" cy="330" rx="113" ry="142" fill="#e7bea0"/>
+  <path d="M184 341c-8-137 45-191 122-188 94 0 133 75 108 194l-23-83c-42 1-79-11-106-30-24 24-60 40-85 42Z" fill="#142b34"/>
+  <path d="M213 380c18 74 50 113 88 115 48 1 78-45 93-113-25 30-55 42-91 41-38 0-66-16-90-43Z" fill="#243a3a"/>
+  <path d="M239 342h24m74 0h24" stroke="#263d40" stroke-width="9" stroke-linecap="round"/>
+  <path d="M276 397q24 15 48 0" fill="none" stroke="#8d5d4d" stroke-width="6" stroke-linecap="round"/>
+</svg>

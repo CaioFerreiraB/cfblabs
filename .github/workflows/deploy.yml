@@ -13,8 +13,8 @@ jobs:
     permissions:
       contents: read
     env:
-      SITE_URL: https://caioferreirab.github.io
-      BASE_PATH: /cfblabs
+      SITE_URL: https://cfblabs.com.br
+      BASE_PATH: /
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6

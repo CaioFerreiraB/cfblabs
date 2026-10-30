@@ -31,3 +31,5 @@ Playwright Test is a project dependency. Install Graphify and run `graphify code
 ## Deployment
 
 The GitHub Actions workflow builds and tests before deploying the `dist/` directory. Its initial `SITE_URL` and `BASE_PATH` target the temporary project URL. After review, set `SITE_URL` to `https://cfblabs.com.br` and `BASE_PATH` to `/`, configure the custom domain in GitHub Pages, and update Cloudflare DNS. Do not change DNS before the reviewed GitHub Pages deployment works.
+
+See [the custom-domain cutover guide](docs/domain-cutover.md) for the exact DNS records and verification sequence.

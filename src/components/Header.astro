@@ -3,13 +3,14 @@ import type { Locale, PageName } from '../lib/content';
 import { site } from '../lib/content';
 import { copy, pageHref } from '../lib/i18n';
 
-interface Props { locale: Locale; page: PageName; light?: boolean; }
-const { locale, page, light = false } = Astro.props;
+interface Props { locale: Locale; page: PageName; light?: boolean; dark?: boolean; switchHref?: string; }
+const { locale, page, light = false, dark = false } = Astro.props;
 const t = copy[locale];
 const otherLocale: Locale = locale === 'en' ? 'pt' : 'en';
-const pages: PageName[] = ['home', 'about', 'projects', 'contact'];
+const pages: PageName[] = ['home', 'about', 'projects', 'blog', 'contact'];
+const switchHref = Astro.props.switchHref ?? pageHref(otherLocale, page);
 ---
-<header class:list={['site-header', { 'site-header--light': light }]}>
+<header class:list={['site-header', { 'site-header--light': light || dark, 'site-header--scrolled': dark }]}>
   <div class="header-inner">
     <a class="brand" href={pageHref(locale, 'home')} aria-label={`${site.brandName} — ${t.navigation.home}`}>
       <span aria-hidden="true"><span class="brand-heavy">cfb</span><span class="brand-dot"></span><span class="brand-light">labs</span></span>
@@ -17,7 +18,7 @@ const pages: PageName[] = ['home', 'about', 'projects', 'contact'];
     <nav class="desktop-nav" aria-label={locale === 'pt' ? 'Navegação principal' : 'Primary navigation'}>
       {pages.map((item) => <a class:list={['nav-link', { active: page === item, 'nav-contact': item === 'contact' }]} href={pageHref(locale, item)} aria-current={page === item ? 'page' : undefined}>{t.navigation[item]}</a>)}
     </nav>
-    <a class="language-switch" href={pageHref(otherLocale, page)} aria-label={t.switchLanguage}>{otherLocale.toUpperCase()}</a>
+    <a class="language-switch" href={switchHref} aria-label={t.switchLanguage}>{otherLocale.toUpperCase()}</a>
     <details class="mobile-navigation">
       <summary aria-label={locale === 'pt' ? 'Abrir menu' : 'Open menu'}><span></span><span></span><span></span></summary>
       <nav aria-label={locale === 'pt' ? 'Navegação móvel' : 'Mobile navigation'}>

@@ -1,0 +1,27 @@
+hero:
+  title:
+    en: Notes from the lab
+    pt: Notas do laboratório
+  description:
+    en: Reflections, tutorials, and lessons on data, technology, the environment, and the projects that connect them.
+    pt: Reflexões, tutoriais e aprendizados sobre dados, tecnologia, meio ambiente e projetos que conectam essas áreas.
+  image: /images/hero/sunburst.jpg
+categories:
+  - id: data
+    label: { en: Data, pt: Dados }
+    color: '#1f56d6'
+  - id: ai
+    label: { en: AI, pt: IA }
+    color: '#6d3fd6'
+  - id: environment
+    label: { en: Environment, pt: Meio ambiente }
+    color: '#0b6b4f'
+  - id: development
+    label: { en: Development, pt: Desenvolvimento }
+    color: '#4338ca'
+  - id: career
+    label: { en: Career, pt: Carreira }
+    color: '#a1461a'
+  - id: projects
+    label: { en: Projects, pt: Projetos }
+    color: '#0b6f8c'

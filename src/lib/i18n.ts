@@ -2,7 +2,7 @@ import type { Locale, PageName } from './content';
 
 export const copy = {
   en: {
-    navigation: { home: 'Home', about: 'About', projects: 'Projects', contact: 'Contact' },
+    navigation: { home: 'Home', about: 'About', projects: 'Projects', blog: 'Blog', contact: 'Contact' },
     skip: 'Skip to content',
     heroPrimary: 'Explore my projects',
     heroSecondary: 'About me',
@@ -19,6 +19,22 @@ export const copy = {
     skillsTitle: 'Skills',
     projectsTitle: 'Projects',
     projectsLead: 'Selected work across environmental data, digital products, community, and AI.',
+    blogTitle: 'Blog',
+    blogEmpty: 'No posts yet. Check back soon.',
+    blogNoResults: 'No posts match this filter.',
+    blogAll: 'All',
+    blogFilter: 'Filter posts by category',
+    blogSearch: 'Search posts',
+    blogRss: 'RSS feed',
+    backToBlog: 'Back to the blog',
+    readingTime: (minutes: number) => `${minutes} min read`,
+    onThisArticle: 'In this article',
+    tags: 'Tags',
+    share: 'Share this post',
+    copyLink: 'Copy link',
+    linkCopied: 'Link copied',
+    shareLinkedIn: 'Share on LinkedIn',
+    shareEmail: 'Share by email',
     contactTitle: 'Contact',
     contactLead: 'Have an idea, a collaboration, or a question? Let us talk.',
     email: 'Email',
@@ -30,7 +46,7 @@ export const copy = {
     footerSocial: 'Contact and social links',
   },
   pt: {
-    navigation: { home: 'Início', about: 'Sobre', projects: 'Projetos', contact: 'Contato' },
+    navigation: { home: 'Início', about: 'Sobre', projects: 'Projetos', blog: 'Blog', contact: 'Contato' },
     skip: 'Ir para o conteúdo',
     heroPrimary: 'Conheça meus projetos',
     heroSecondary: 'Sobre mim',
@@ -47,6 +63,22 @@ export const copy = {
     skillsTitle: 'Habilidades',
     projectsTitle: 'Projetos',
     projectsLead: 'Uma seleção de projetos sobre dados ambientais, produtos digitais, comunidade e IA.',
+    blogTitle: 'Blog',
+    blogEmpty: 'Ainda não há posts. Volte em breve.',
+    blogNoResults: 'Nenhum artigo encontrado com este filtro.',
+    blogAll: 'Todos',
+    blogFilter: 'Filtrar artigos por categoria',
+    blogSearch: 'Buscar artigos',
+    blogRss: 'Feed RSS',
+    backToBlog: 'Voltar para o blog',
+    readingTime: (minutes: number) => `${minutes} min de leitura`,
+    onThisArticle: 'Neste artigo',
+    tags: 'Tags',
+    share: 'Compartilhar este artigo',
+    copyLink: 'Copiar link',
+    linkCopied: 'Link copiado',
+    shareLinkedIn: 'Compartilhar no LinkedIn',
+    shareEmail: 'Compartilhar por e-mail',
     contactTitle: 'Contato',
     contactLead: 'Tem uma ideia, parceria ou pergunta? Vamos conversar.',
     email: 'E-mail',
@@ -60,14 +92,22 @@ export const copy = {
 } as const;
 
 const pagePaths: Record<Locale, Record<PageName, string>> = {
-  en: { home: '/', about: '/about/', projects: '/projects/', contact: '/contact/' },
-  pt: { home: '/pt/', about: '/pt/about/', projects: '/pt/projects/', contact: '/pt/contact/' },
+  en: { home: '/', about: '/about/', projects: '/projects/', blog: '/blog/', contact: '/contact/' },
+  pt: { home: '/pt/', about: '/pt/about/', projects: '/pt/projects/', blog: '/pt/blog/', contact: '/pt/contact/' },
 };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 export function pageHref(locale: Locale, page: PageName): string {
   return `${base}${pagePaths[locale][page]}`;
+}
+
+export function postHref(locale: Locale, slug: string): string {
+  return `${pageHref(locale, 'blog')}${slug}/`;
+}
+
+export function rssHref(locale: Locale): string {
+  return `${base}${locale === 'en' ? '' : '/pt'}/rss.xml`;
 }
 
 export function assetHref(path: string): string {
@@ -78,4 +118,10 @@ export function formatMonth(value: string, locale: Locale): string {
   return new Intl.DateTimeFormat(locale === 'pt' ? 'pt-BR' : 'en-US', {
     month: 'short', year: 'numeric', timeZone: 'UTC',
   }).format(new Date(`${value}-01T00:00:00Z`));
+}
+
+export function formatDate(value: Date, locale: Locale): string {
+  return new Intl.DateTimeFormat(locale === 'pt' ? 'pt-BR' : 'en-US', {
+    day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC',
+  }).format(value);
 }

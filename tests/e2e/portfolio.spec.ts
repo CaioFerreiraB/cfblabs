@@ -1,12 +1,22 @@
 import { test, expect } from '@playwright/test';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import YAML from 'yaml';
 
 const base = (process.env.BASE_PATH ?? '').replace(/\/$/, '');
 const path = (route: string) => `${base}${route}`;
 
-test('all eight routes render and language switching preserves the page', async ({ page }) => {
-  const routes = ['/', '/about/', '/projects/', '/contact/'];
+type PostData = { title: string; pubDate: string | Date; category: string; draft?: boolean; tags?: string[] };
+function publishedPosts(locale: 'en' | 'pt') {
+  const folder = `src/content/blog/${locale}`;
+  return readdirSync(folder)
+    .filter((file) => file.endsWith('.md'))
+    .map((file) => ({ slug: file.replace(/\.md$/, ''), data: YAML.parse(readFileSync(`${folder}/${file}`, 'utf8').split(/^---$/m)[1]) as PostData }))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf() || a.slug.localeCompare(b.slug));
+}
+
+test('all main routes render and language switching preserves the page', async ({ page }) => {
+  const routes = ['/', '/about/', '/projects/', '/blog/', '/contact/'];
   for (const route of routes) {
     await page.goto(path(route));
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
@@ -107,6 +117,94 @@ test('projects show four linked cards with covers and tags', async ({ page }) =>
   }
 });
 
+test('blog lists published posts in each language and links translations', async ({ page }) => {
+  for (const locale of ['en', 'pt'] as const) {
+    const posts = publishedPosts(locale);
+    await page.goto(path(locale === 'en' ? '/blog/' : '/pt/blog/'));
+    await expect(page.locator('.post-card')).toHaveCount(posts.length);
+    await expect(page.locator('.blog-empty:visible')).toHaveCount(posts.length === 0 ? 1 : 0);
+    if (posts.length === 0) continue;
+    await expect(page.locator('.post-card h2')).toHaveText(posts.map((post) => post.data.title));
+
+    const [newest] = posts;
+    await page.locator('.post-card h2 a').first().click();
+    const prefix = locale === 'en' ? '' : '/pt';
+    await expect(page).toHaveURL(new RegExp(`${path(`${prefix}/blog/${newest.slug}/`)}$`));
+    await expect(page.locator('main h1')).toHaveText(newest.data.title);
+    await expect(page.locator('.post-body')).not.toBeEmpty();
+    await expect(page.locator('.nav-link.active')).toHaveText('Blog');
+    await expect(page.locator('.site-header')).toHaveCSS('background-color', 'rgb(6, 24, 43)');
+    await expect(page.locator('.post-author strong')).toHaveText(YAML.parse(readFileSync('src/data/profile.yml', 'utf8')).name);
+    const sections = await page.locator('.post-body h2').count();
+    await expect(page.locator('.post-toc a')).toHaveCount(sections);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(page.locator('.post-aside')).toBeHidden();
+    await expect(page.locator('.post-header-tags li')).toHaveText(newest.data.tags ?? []);
+    if (sections > 0) {
+      const toc = page.locator('.post-toc-mobile');
+      await expect(toc.locator('a').first()).toBeHidden();
+      await toc.locator('summary').click();
+      await expect(toc.locator('a')).toHaveCount(sections);
+      await toc.locator('a').first().click();
+      await expect(toc).not.toHaveAttribute('open');
+      await expect(toc).toBeInViewport();
+    }
+    await page.setViewportSize({ width: 1280, height: 720 });
+
+    const other = locale === 'en' ? 'pt' : 'en';
+    const translated = publishedPosts(other).some((post) => post.slug === newest.slug);
+    const otherPrefix = other === 'en' ? '' : '/pt';
+    await page.locator('.language-switch').click();
+    await expect(page).toHaveURL(new RegExp(`${path(translated ? `${otherPrefix}/blog/${newest.slug}/` : `${otherPrefix}/blog/`)}$`));
+    await expect(page.locator('html')).toHaveAttribute('lang', other);
+  }
+});
+
+test('blog filters posts by category and search text', async ({ page }) => {
+  const posts = publishedPosts('pt');
+  test.skip(posts.length === 0, 'No published Portuguese posts to filter');
+  const blog = YAML.parse(readFileSync('src/data/blog.yml', 'utf8'));
+  await page.goto(path('/pt/blog/'));
+  await expect(page.locator('.hero h1')).toHaveText(blog.hero.title.pt);
+  const chips = page.locator('.blog-chip');
+  await expect(chips.first()).toHaveAttribute('aria-pressed', 'true');
+
+  const category = blog.categories.find((item: { id: string }) => item.id === posts[0].data.category);
+  await chips.filter({ hasText: category.label.pt }).click();
+  await expect(chips.filter({ hasText: category.label.pt })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.post-card:visible')).toHaveCount(posts.filter((post) => post.data.category === category.id).length);
+
+  await chips.first().click();
+  await page.locator('[data-search]').fill(posts[0].data.title.slice(0, 12));
+  await expect(page.locator('.post-card:visible').first()).toContainText(posts[0].data.title);
+  await page.locator('[data-search]').fill('zzzz-no-match');
+  await expect(page.locator('.post-card:visible')).toHaveCount(0);
+  await expect(page.locator('[data-no-results]')).toBeVisible();
+});
+
+test('blog publishes an RSS feed per language', async ({ request }) => {
+  for (const locale of ['en', 'pt'] as const) {
+    const response = await request.get(path(locale === 'en' ? '/rss.xml' : '/pt/rss.xml'));
+    expect(response.ok()).toBe(true);
+    const xml = await response.text();
+    expect(xml).toContain('<rss version="2.0">');
+    expect(xml.match(/<item>/g)?.length ?? 0).toBe(publishedPosts(locale).length);
+  }
+});
+
+test('content editor ships its configuration without being indexed', async ({ page, request }) => {
+  const config = YAML.parse(await (await request.get(path('/admin/config.yml'))).text());
+  expect(config.backend).toMatchObject({ name: 'github', repo: 'CaioFerreiraB/cfblabs', auth_methods: ['token'] });
+  expect(config.collections[0].folder).toBe('src/content/blog');
+  for (const asset of [config.logo.src, '/admin/manrope.woff2']) {
+    expect((await request.get(path(asset))).ok(), `${asset} is served`).toBe(true);
+  }
+  await page.route('https://unpkg.com/**', (route) => route.abort());
+  await page.goto(path('/admin/'));
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+});
+
 test('contact provides only the requested direct channels', async ({ page }) => {
   await page.goto(path('/contact/'));
   await expect(page.locator('.contact-list > a')).toHaveCount(3);
@@ -129,7 +227,7 @@ test('keyboard access and responsive widths work', async ({ page }) => {
     expect(overflowing, `Horizontal overflow at ${width}px`).toBe(false);
     if (width === 375) {
       await page.locator('.mobile-navigation summary').click();
-      await expect(page.locator('.mobile-navigation nav a')).toHaveCount(4);
+      await expect(page.locator('.mobile-navigation nav a')).toHaveCount(5);
     }
   }
   await page.goto(path('/'));

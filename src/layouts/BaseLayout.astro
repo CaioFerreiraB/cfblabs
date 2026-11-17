@@ -2,34 +2,47 @@
 import '@fontsource-variable/manrope';
 import type { Locale, PageName } from '../lib/content';
 import { footer, site } from '../lib/content';
-import { assetHref, copy, pageHref } from '../lib/i18n';
+import { assetHref, copy, pageHref, rssHref } from '../lib/i18n';
 import Header from '../components/Header.astro';
 import Icon from '../components/Icon.astro';
 import '../styles/global.css';
 
-interface Props { locale: Locale; page: PageName; title: string; description: string; hero?: boolean; }
-const { locale, page, title, description, hero = false } = Astro.props;
+interface Props {
+  locale: Locale;
+  page: PageName;
+  title: string;
+  description: string;
+  hero?: boolean;
+  /** Solid dark header for pages without a hero image. */
+  darkHeader?: boolean;
+  /** Per-locale URLs of this page; a missing locale means no translation exists. Defaults to the page route in both locales. */
+  hrefs?: Partial<Record<Locale, string>>;
+}
+const { locale, page, title, description, hero = false, darkHeader = false } = Astro.props;
 const t = copy[locale];
-const canonical = new URL(pageHref(locale, page), Astro.site).toString();
+const hrefs = Astro.props.hrefs ?? { en: pageHref('en', page), pt: pageHref('pt', page) };
+const absolute = (href: string) => new URL(href, Astro.site).toString();
+const canonical = absolute(hrefs[locale] ?? pageHref(locale, page));
 const otherLocale: Locale = locale === 'en' ? 'pt' : 'en';
+const alternates = (Object.entries(hrefs) as [Locale, string][]).map(([hreflang, href]) => ({ hreflang, href: absolute(href) }));
 ---
 <!doctype html>
 <html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content={hero ? '#06182b' : '#f5f7fa'} />
+    <meta name="theme-color" content={hero || darkHeader ? '#06182b' : '#f5f7fa'} />
     <meta name="description" content={description} />
     <link rel="icon" type="image/x-icon" href={assetHref('/cfblabs-icon.ico')} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang={locale === 'en' ? 'pt' : 'en'} href={new URL(pageHref(otherLocale, page), Astro.site).toString()} />
-    <link rel="alternate" hreflang={locale} href={canonical} />
-    <link rel="alternate" hreflang="x-default" href={new URL(pageHref('en', page), Astro.site).toString()} />
+    {alternates.length > 1 && alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
+    {alternates.length > 1 && hrefs.en && <link rel="alternate" hreflang="x-default" href={absolute(hrefs.en)} />}
+    {page === 'blog' && <link rel="alternate" type="application/rss+xml" title={`${site.brandName} · ${t.blogTitle}`} href={rssHref(locale)} />}
     <title>{title} | {site.brandName}</title>
   </head>
   <body class:list={[{ 'home-body': hero }]}>
     <a class="skip-link" href="#main-content">{t.skip}</a>
-    <Header locale={locale} page={page} light={hero} />
+    <Header locale={locale} page={page} light={hero} dark={darkHeader} switchHref={hrefs[otherLocale] ?? pageHref(otherLocale, page)} />
     <main id="main-content"><slot /></main>
     <footer class="site-footer">
       <div class="footer-main container">

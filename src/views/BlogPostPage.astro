@@ -37,7 +37,7 @@ const shareLinks = [
             <span><time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate, locale)}</time> · {t.readingTime(post.readingMinutes)}</span>
           </div>
           <div class="post-share" role="group" aria-label={t.share}>
-            <button type="button" class="post-share-button" aria-label={t.copyLink} title={t.copyLink} data-copy-link={url} data-copied-label={t.linkCopied} hidden>
+            <button type="button" class="post-share-button" aria-label={t.copyLink} title={t.copyLink} data-copy-link={url} data-copied-label={t.linkCopied} data-failed-label={t.linkCopyFailed} hidden>
               <Icon name="link" size={18} /><Icon name="check" size={18} class="post-share-done" />
             </button>
             {shareLinks.map((link) => (
@@ -89,10 +89,20 @@ const shareLinks = [
   if (button && status && navigator.clipboard) {
     button.hidden = false;
     button.addEventListener('click', async () => {
-      await navigator.clipboard.writeText(button.dataset.copyLink!);
-      status.textContent = button.dataset.copiedLabel!;
-      button.classList.add('is-copied');
-      setTimeout(() => { button.classList.remove('is-copied'); status.textContent = ''; }, 2000);
+      try {
+        await navigator.clipboard.writeText(button.dataset.copyLink!);
+        status.textContent = button.dataset.copiedLabel!;
+        button.classList.add('is-copied');
+      } catch {
+        // Permission can be denied even when the API exists; show the failure instead of failing silently.
+        status.textContent = button.dataset.failedLabel!;
+        status.classList.replace('visually-hidden', 'post-share-error');
+      }
+      setTimeout(() => {
+        button.classList.remove('is-copied');
+        status.classList.replace('post-share-error', 'visually-hidden');
+        status.textContent = '';
+      }, 3000);
     });
   }
 </script>

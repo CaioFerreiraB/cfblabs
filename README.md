@@ -74,6 +74,8 @@ Drafts appear in `npm run dev` but are excluded from `npm run build`. Blog image
 
 The site ships [Sveltia CMS](https://sveltiacms.app/) at `https://cfblabs.com.br/admin/` (configured in `public/admin/config.yml`). Each save is a commit to `main`, so the deployment workflow builds, tests, and publishes the change in a few minutes. A failing build is not deployed.
 
+Portuguese is the editor's default locale, which Sveltia always keeps enabled: every post created in the editor has a Portuguese version, and the English version can be switched off until it is translated. An English-only post has to be added as a file in `src/content/blog/en/`. The editor's preview links use `/{{locale}}/blog/<slug>/`; `astro.config.mjs` redirects `/en/blog/<slug>/` to the English post at `/blog/<slug>/`.
+
 Sign-in uses a GitHub fine-grained personal access token:
 
 1. Open GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token.

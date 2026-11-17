@@ -123,6 +123,7 @@ test('blog lists published posts in each language and links translations', async
     await page.goto(path(locale === 'en' ? '/blog/' : '/pt/blog/'));
     await expect(page.locator('.post-card')).toHaveCount(posts.length);
     await expect(page.locator('.blog-empty:visible')).toHaveCount(posts.length === 0 ? 1 : 0);
+    await expect(page.locator('.blog-filters, .blog-search').filter({ visible: true })).toHaveCount(posts.length === 0 ? 0 : 2);
     if (posts.length === 0) continue;
     await expect(page.locator('.post-card h2')).toHaveText(posts.map((post) => post.data.title));
 
@@ -159,6 +160,19 @@ test('blog lists published posts in each language and links translations', async
     await expect(page).toHaveURL(new RegExp(`${path(translated ? `${otherPrefix}/blog/${newest.slug}/` : `${otherPrefix}/blog/`)}$`));
     await expect(page.locator('html')).toHaveAttribute('lang', other);
   }
+});
+
+test('copying a post link reports a denied clipboard', async ({ page }) => {
+  const [post] = publishedPosts('pt');
+  test.skip(!post, 'No published Portuguese posts to share');
+  await page.addInitScript(() => {
+    navigator.clipboard.writeText = () => Promise.reject(new DOMException('Denied', 'NotAllowedError'));
+  });
+  await page.goto(path(`/pt/blog/${post.slug}/`));
+  await page.locator('[data-copy-link]').click();
+  await expect(page.locator('[data-copy-status]')).toHaveText('Não foi possível copiar o link');
+  await expect(page.locator('[data-copy-status]')).toBeVisible();
+  await expect(page.locator('[data-copy-link]')).not.toHaveClass(/is-copied/);
 });
 
 test('blog filters posts by category and search text', async ({ page }) => {

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="same-origin" />
+    <title>cfblabs · Content editor</title>
+    <link rel="icon" type="image/x-icon" href="/cfblabs-icon.ico" />
+    <link rel="preload" href="/admin/manrope.woff2" as="font" type="font/woff2" crossorigin />
+    <!--
+      Brand theme for Sveltia CMS. It overrides the --sui-* design tokens of Sveltia UI, which are
+      internal rather than a public API, so recheck this page after every Sveltia upgrade.
+      The doubled :root raises specificity above Sveltia's own rules, which are injected later.
+    -->
+    <style>
+      @font-face {
+        font-family: 'Manrope';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 200 800;
+        src: url('/admin/manrope.woff2') format('woff2');
+      }
+
+      :root:root {
+        --sui-base-hue: 218;
+        --sui-font-family-default: 'Manrope', system-ui, sans-serif;
+        --sui-font-size-default: 14px;
+        --sui-font-weight-normal: 500;
+        --sui-font-weight-bold: 750;
+        --sui-heading-font-weight: 800;
+        --sui-control-small-border-radius: 6px;
+        --sui-control-medium-border-radius: 8px;
+        --sui-control-large-border-radius: 10px;
+        --sui-info-color-hue: 218;
+        --sui-success-color-hue: 162;
+      }
+
+      :root:root[data-theme='light'] {
+        --sui-foreground-color-1-hsl: 222 49% 12%;
+        --sui-foreground-color-2-hsl: 222 34% 20%;
+        --sui-foreground-color-3-hsl: 219 20% 41%;
+        --sui-foreground-color-4-hsl: 216 15% 50%;
+        --sui-foreground-color-5-hsl: 216 15% 68%;
+        --sui-background-color-1-hsl: 0 0% 100%;
+        --sui-background-color-2-hsl: 216 33% 98%;
+        --sui-background-color-3-hsl: 216 30% 95.5%;
+        --sui-background-color-4-hsl: 216 28% 92%;
+        --sui-background-color-5-hsl: 216 24% 85%;
+        --sui-border-color-1-hsl: 216 18% 70%;
+        --sui-border-color-2-hsl: 216 25% 84%;
+        --sui-border-color-3-hsl: 214 33% 91%;
+        --sui-shadow-color: 218 50% 15%;
+        --sui-primary-accent-color: #2865ee;
+        --sui-primary-accent-color-light: #4b7ff2;
+        --sui-primary-accent-color-dark: #1951d3;
+        --sui-primary-accent-color-text: #1951d3;
+        --sui-primary-accent-color-inverted: #fff;
+        --sui-primary-accent-color-translucent: rgb(40 101 238 / 55%);
+        --sui-primary-accent-color-translucent-light: rgb(40 101 238 / 22%);
+      }
+
+      :root:root[data-theme='dark'] {
+        --sui-foreground-color-1-hsl: 210 30% 96%;
+        --sui-foreground-color-2-hsl: 210 25% 84%;
+        --sui-foreground-color-3-hsl: 212 20% 70%;
+        --sui-foreground-color-4-hsl: 212 16% 58%;
+        --sui-foreground-color-5-hsl: 212 14% 40%;
+        --sui-background-color-1-hsl: 212 62% 7%;
+        --sui-background-color-2-hsl: 212 56% 9%;
+        --sui-background-color-3-hsl: 212 50% 12%;
+        --sui-background-color-4-hsl: 212 44% 15.5%;
+        --sui-background-color-5-hsl: 212 34% 24%;
+        --sui-border-color-1-hsl: 212 25% 38%;
+        --sui-border-color-2-hsl: 212 34% 22%;
+        --sui-border-color-3-hsl: 212 40% 17%;
+        --sui-shadow-color: 212 70% 3%;
+        --sui-primary-accent-color: #2865ee;
+        --sui-primary-accent-color-light: #4b7ff2;
+        --sui-primary-accent-color-dark: #1951d3;
+        --sui-primary-accent-color-text: #8aafff;
+        --sui-primary-accent-color-inverted: #fff;
+        --sui-primary-accent-color-translucent: rgb(75 127 242 / 55%);
+        --sui-primary-accent-color-translucent-light: rgb(75 127 242 / 28%);
+      }
+
+      /* Post body: document-style writing surface instead of a form textarea. */
+      :root [data-key-path='body'] .lexical-root {
+        min-height: 420px;
+        padding: 28px clamp(18px, 4vw, 40px) 40px;
+        font-size: 16.5px;
+        line-height: 1.75;
+        -webkit-user-select: text;
+        user-select: text;
+      }
+      :root [data-key-path='body'] .lexical-root > :first-child { margin-top: 0; }
+      :root [data-key-path='body'] .lexical-root :is(p, ul, ol, blockquote) { margin-block: 0 0.9em; }
+      :root [data-key-path='body'] .lexical-root h1 { margin: 1.4em 0 0.5em; font-size: 2em; letter-spacing: -0.03em; }
+      :root [data-key-path='body'] .lexical-root h2 { margin: 1.4em 0 0.45em; font-size: 1.55em; letter-spacing: -0.025em; }
+      :root [data-key-path='body'] .lexical-root h3 { margin: 1.2em 0 0.4em; font-size: 1.25em; letter-spacing: -0.015em; }
+      :root [data-key-path='body'] .lexical-root :is(h4, h5, h6) { margin: 1.1em 0 0.35em; font-size: 1.05em; }
+      :root [data-key-path='body'] .lexical-root blockquote {
+        margin-inline: 0;
+        border-inline-start: 3px solid var(--sui-primary-accent-color);
+        padding-inline-start: 16px;
+        color: var(--sui-secondary-foreground-color);
+      }
+      :root [data-key-path='body'] .lexical-root li { margin-block: 0.2em; }
+    </style>
+  </head>
+  <body>
+    <!-- Sveltia CMS is pinned with Subresource Integrity because this page holds a GitHub token with write access. -->
+    <script
+      src="https://unpkg.com/@sveltia/cms@0.256.1/dist/sveltia-cms.js"
+      integrity="sha384-LPT86oZkLhmoF84O1jKZBSaFJOVvKv8sjXDKap1SOaSwzbC8F6HH7rTJWekmAzG9"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

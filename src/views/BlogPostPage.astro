@@ -1,0 +1,108 @@
+---
+import { render } from 'astro:content';
+import { profile } from '../lib/content';
+import { getPostHrefs, type BlogPost } from '../lib/blog';
+import { assetHref, copy, formatDate, pageHref, postHref } from '../lib/i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props { post: BlogPost; }
+const { post } = Astro.props;
+const { locale } = post;
+const t = copy[locale];
+const { Content, headings } = await render(post);
+const sections = headings.filter((heading) => heading.depth === 2);
+const hrefs = await getPostHrefs(post.slug);
+const url = new URL(postHref(locale, post.slug), Astro.site).toString();
+const shareLinks = [
+  { label: t.shareLinkedIn, icon: 'linkedin', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}` },
+  { label: t.shareEmail, icon: 'mail', href: `mailto:?subject=${encodeURIComponent(post.data.title)}&body=${encodeURIComponent(url)}` },
+];
+---
+<BaseLayout locale={locale} page="blog" title={post.data.title} description={post.data.description} hrefs={hrefs} darkHeader>
+  <div class="container post-layout" style={`--category-color: ${post.category.color}`}>
+    <article class="post">
+      <a class="post-back" href={pageHref(locale, 'blog')}><Icon name="arrow-left" size={16} />{t.backToBlog}</a>
+      <header class="post-header">
+        <span class="category-badge">{post.category.label[locale]}</span>
+        <h1>{post.data.title}</h1>
+        <p>{post.data.description}</p>
+        {post.data.tags.length > 0 && (
+          <ul class="post-header-tags" aria-label={t.tags}>{post.data.tags.map((tag) => <li>{tag}</li>)}</ul>
+        )}
+        <div class="post-byline">
+          <img class="post-avatar" src={assetHref(profile.photo)} alt="" width="44" height="44" />
+          <div class="post-author">
+            <strong>{profile.name}</strong>
+            <span><time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate, locale)}</time> · {t.readingTime(post.readingMinutes)}</span>
+          </div>
+          <div class="post-share" role="group" aria-label={t.share}>
+            <button type="button" class="post-share-button" aria-label={t.copyLink} title={t.copyLink} data-copy-link={url} data-copied-label={t.linkCopied} data-failed-label={t.linkCopyFailed} hidden>
+              <Icon name="link" size={18} /><Icon name="check" size={18} class="post-share-done" />
+            </button>
+            {shareLinks.map((link) => (
+              <a class="post-share-button" href={link.href} aria-label={link.label} title={link.label} target={link.icon === 'mail' ? undefined : '_blank'} rel={link.icon === 'mail' ? undefined : 'noopener noreferrer'}>
+                <Icon name={link.icon} size={link.icon === 'linkedin' ? 17 : 18} />
+              </a>
+            ))}
+            <span class="visually-hidden" role="status" data-copy-status></span>
+          </div>
+        </div>
+      </header>
+      {sections.length > 0 && (
+        <details class="post-toc-mobile" data-toc-mobile>
+          <summary><Icon name="list" size={18} /><span>{t.onThisArticle}</span><Icon name="chevron-down" size={18} class="post-toc-chevron" /></summary>
+          <ol>{sections.map((section) => <li><a href={`#${section.slug}`}>{section.text}</a></li>)}</ol>
+        </details>
+      )}
+      {post.data.cover && <img class="post-cover" src={assetHref(post.data.cover)} alt={post.data.coverAlt ?? ''} />}
+      <div class="post-body"><Content /></div>
+    </article>
+
+    {(sections.length > 0 || post.data.tags.length > 0) && (
+      <aside class="post-aside">
+        {sections.length > 0 && (
+          <nav class="post-panel post-toc" aria-labelledby="post-toc-title">
+            <h2 id="post-toc-title">{t.onThisArticle}</h2>
+            <ol>{sections.map((section) => <li><a href={`#${section.slug}`}>{section.text}</a></li>)}</ol>
+          </nav>
+        )}
+        {post.data.tags.length > 0 && (
+          <section class="post-panel" aria-labelledby="post-tags-title">
+            <h2 id="post-tags-title">{t.tags}</h2>
+            <span class="project-tags">{post.data.tags.map((tag) => <span>{tag}</span>)}</span>
+          </section>
+        )}
+      </aside>
+    )}
+  </div>
+</BaseLayout>
+
+<script>
+  const toc = document.querySelector<HTMLDetailsElement>('[data-toc-mobile]');
+  toc?.addEventListener('click', (event) => {
+    if ((event.target as HTMLElement).closest('a')) toc.open = false;
+  });
+
+  const button = document.querySelector<HTMLButtonElement>('[data-copy-link]');
+  const status = document.querySelector<HTMLElement>('[data-copy-status]');
+  if (button && status && navigator.clipboard) {
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copyLink!);
+        status.textContent = button.dataset.copiedLabel!;
+        button.classList.add('is-copied');
+      } catch {
+        // Permission can be denied even when the API exists; show the failure instead of failing silently.
+        status.textContent = button.dataset.failedLabel!;
+        status.classList.replace('visually-hidden', 'post-share-error');
+      }
+      setTimeout(() => {
+        button.classList.remove('is-copied');
+        status.classList.replace('post-share-error', 'visually-hidden');
+        status.textContent = '';
+      }, 3000);
+    });
+  }
+</script>

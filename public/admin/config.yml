@@ -1,0 +1,96 @@
+# Sveltia CMS configuration: https://sveltiacms.app/en/docs
+# Content is committed straight to main, which triggers the GitHub Pages deployment workflow.
+backend:
+  name: github
+  repo: CaioFerreiraB/cfblabs
+  branch: main
+  auth_methods: [token]
+  commit_messages:
+    create: 'Create blog post "{{slug}}"'
+    update: 'Update blog post "{{slug}}"'
+    delete: 'Delete blog post "{{slug}}"'
+    uploadMedia: 'Upload "{{path}}"'
+    deleteMedia: 'Delete "{{path}}"'
+
+app_title: cfblabs editor
+logo:
+  src: /favicon.png
+site_url: https://cfblabs.com.br
+display_url: https://cfblabs.com.br
+
+media_folder: public/images/blog
+public_folder: /images/blog
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+
+output:
+  omit_empty_optional_fields: true
+
+i18n:
+  structure: multiple_folders
+  locales: [pt, en]
+  default_locale: pt
+  # Lets an editor turn off the English version of a post that is not translated yet.
+  initial_locales: all
+
+collections:
+  - name: blog
+    label: Blog
+    label_singular: Post
+    folder: src/content/blog
+    extension: md
+    format: frontmatter
+    create: true
+    i18n: true
+    slug: '{{slug}}'
+    summary: '{{title}} · {{pubDate}}'
+    thumbnail: cover
+    view_filters:
+      - { label: Published, field: draft, eq: false }
+      - { label: Drafts, field: draft, eq: true }
+    view_groups:
+      - { label: Category, field: category }
+      - { label: Status (draft), field: draft }
+    sortable_fields:
+      fields: [pubDate, title]
+      default:
+        field: pubDate
+        direction: descending
+    preview_path: '/{{locale}}/blog/{{slug}}/'
+    fields:
+      - { name: title, label: Title, widget: string, i18n: true }
+      - { name: description, label: Summary, widget: text, i18n: true, hint: Shown on the blog list and in search results. }
+      - { name: pubDate, label: Publication date, widget: datetime, type: date, format: YYYY-MM-DD, default: '{{now}}', i18n: duplicate }
+      - { name: category, label: Category, widget: relation, collection: settings, file: blog, value_field: 'categories.*.id', display_fields: ['categories.*.label.pt'], search_fields: ['categories.*.label.pt'], i18n: duplicate }
+      - { name: draft, label: Draft, widget: boolean, default: false, i18n: duplicate, hint: Drafts are saved to the repository but not published on the site. }
+      - { name: tags, label: Tags, widget: list, required: false, i18n: true }
+      - { name: cover, label: Cover image, widget: image, required: false, i18n: duplicate }
+      - { name: coverAlt, label: Cover description, widget: string, required: false, i18n: true, hint: Describes the cover for screen readers. }
+      - { name: body, label: Content, widget: markdown, i18n: true, editor_components: [image, code-block, table, hr] }
+
+  - name: settings
+    label: Blog settings
+    icon: settings
+    files:
+      - name: blog
+        label: Banner and categories
+        file: src/data/blog.yml
+        fields:
+          - name: hero
+            label: Banner
+            widget: object
+            fields:
+              - { name: title, label: Title, widget: object, fields: [{ name: en, label: English, widget: string }, { name: pt, label: Portuguese, widget: string }] }
+              - { name: description, label: Description, widget: object, fields: [{ name: en, label: English, widget: text }, { name: pt, label: Portuguese, widget: text }] }
+              - { name: image, label: Background image, widget: image, media_folder: /public/images/hero, public_folder: /images/hero }
+          - name: categories
+            label: Categories
+            label_singular: Category
+            widget: list
+            summary: '{{fields.label.pt}} ({{fields.id}})'
+            fields:
+              - { name: id, label: ID, widget: string, pattern: ['^[a-z0-9-]+$', 'Use lowercase letters, numbers, and hyphens'], hint: Stored in each post. Changing it requires updating those posts. }
+              - { name: label, label: Name, widget: object, fields: [{ name: en, label: English, widget: string }, { name: pt, label: Portuguese, widget: string }] }
+              - { name: color, label: Color, widget: color, hint: Use a dark shade; the badge background is a light tint of it. }

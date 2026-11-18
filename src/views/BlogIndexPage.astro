@@ -1,0 +1,97 @@
+---
+import type { Locale } from '../lib/content';
+import { blog } from '../lib/content';
+import { getPosts } from '../lib/blog';
+import { assetHref, copy, formatDate, postHref, rssHref } from '../lib/i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+const posts = await getPosts(locale);
+const usedCategories = blog.categories.filter((category) => posts.some((post) => post.category.id === category.id));
+---
+<BaseLayout locale={locale} page="blog" title={t.blogTitle} description={blog.hero.description[locale]} hero>
+  <section class="hero blog-hero" style={`--hero-image: url('${assetHref(blog.hero.image)}')`}>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <h1>{blog.hero.title[locale]}</h1>
+      <p class="hero-description">{blog.hero.description[locale]}</p>
+    </div>
+  </section>
+
+  <div class="container blog-shell" data-blog>
+    <div class="blog-toolbar">
+      <div class="blog-filters" role="group" aria-label={t.blogFilter} data-filters hidden>
+        <button type="button" class="blog-chip" aria-pressed="true" data-category="">{t.blogAll}</button>
+        {usedCategories.map((category) => (
+          <button type="button" class="blog-chip" aria-pressed="false" data-category={category.id} style={`--category-color: ${category.color}`}>{category.label[locale]}</button>
+        ))}
+      </div>
+      <div class="blog-tools">
+        <label class="blog-search" data-search-field hidden>
+          <Icon name="search" size={18} />
+          <span class="visually-hidden">{t.blogSearch}</span>
+          <input type="search" placeholder={t.blogSearch} autocomplete="off" data-search />
+        </label>
+        <a class="blog-tool" href={rssHref(locale)} aria-label={t.blogRss} title={t.blogRss}><Icon name="rss" size={19} /></a>
+      </div>
+    </div>
+
+    {posts.length === 0 ? <p class="blog-empty">{t.blogEmpty}</p> : (
+      <ol class="post-grid">
+        {posts.map((post) => (
+          <li class="post-card" data-category={post.category.id} data-text={`${post.data.title} ${post.data.description} ${post.data.tags.join(' ')}`.toLocaleLowerCase(locale)} style={`--category-color: ${post.category.color}`}>
+            <div class="post-card-media">
+              {post.data.cover ? <img src={assetHref(post.data.cover)} alt="" loading="lazy" /> : <span class="post-card-placeholder"></span>}
+              <span class="category-badge">{post.category.label[locale]}</span>
+            </div>
+            <div class="post-card-content">
+              <h2><a href={postHref(locale, post.slug)}>{post.data.title}</a></h2>
+              <p>{post.data.description}</p>
+              <div class="post-meta">
+                <span><Icon name="calendar" size={15} /><time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate, locale)}</time></span>
+                <span aria-hidden="true">·</span>
+                <span><Icon name="clock" size={15} />{t.readingTime(post.readingMinutes)}</span>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    )}
+    <p class="blog-empty" role="status" data-no-results hidden>{t.blogNoResults}</p>
+  </div>
+</BaseLayout>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-blog]');
+  const cards = [...document.querySelectorAll<HTMLElement>('.post-card')];
+  if (root && cards.length > 0) {
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('.blog-chip')];
+    const search = root.querySelector<HTMLInputElement>('[data-search]')!;
+    const noResults = root.querySelector<HTMLElement>('[data-no-results]')!;
+    let category = '';
+
+    const apply = () => {
+      const query = search.value.trim().toLocaleLowerCase(document.documentElement.lang);
+      let visible = 0;
+      for (const card of cards) {
+        card.hidden = (category !== '' && card.dataset.category !== category) || !card.dataset.text!.includes(query);
+        if (!card.hidden) visible += 1;
+      }
+      noResults.hidden = visible > 0;
+    };
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () => {
+        category = chip.dataset.category!;
+        for (const other of chips) other.setAttribute('aria-pressed', String(other === chip));
+        apply();
+      });
+    }
+    search.addEventListener('input', apply);
+    root.querySelector<HTMLElement>('[data-filters]')!.hidden = false;
+    root.querySelector<HTMLElement>('[data-search-field]')!.hidden = false;
+  }
+</script>

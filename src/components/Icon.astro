@@ -1,26 +1,35 @@
 ---
 import {
-  ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Camera, ChartNoAxesCombined,
-  CodeXml, GraduationCap, HeartHandshake, Mail,
-  MapPin, Microscope, Trees, UsersRound,
+  ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Calendar, Camera, ChartNoAxesCombined,
+  Check, ChevronDown, Clock, CodeXml, GraduationCap, HeartHandshake, Link, List, Mail,
+  MapPin, Microscope, Rss, Search, Trees, UsersRound,
 } from '@lucide/astro';
 import { assetHref } from '../lib/i18n';
 
 interface Props { name: string; size?: number; strokeWidth?: number; class?: string; }
 const { name, size = 20, strokeWidth = 1.8, class: className } = Astro.props;
 const icons = {
+  'arrow-left': ArrowLeft,
   'arrow-right': ArrowRight,
   'arrow-up-right': ArrowUpRight,
   'book-open': BookOpen,
   'briefcase-business': BriefcaseBusiness,
+  calendar: Calendar,
   camera: Camera,
+  check: Check,
+  'chevron-down': ChevronDown,
+  clock: Clock,
   'chart-no-axes-combined': ChartNoAxesCombined,
   'code-xml': CodeXml,
   'graduation-cap': GraduationCap,
   'heart-handshake': HeartHandshake,
+  link: Link,
+  list: List,
   mail: Mail,
   'map-pin': MapPin,
   microscope: Microscope,
+  rss: Rss,
+  search: Search,
   trees: Trees,
   'users-round': UsersRound,
 };

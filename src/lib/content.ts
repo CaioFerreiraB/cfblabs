@@ -102,6 +102,15 @@ const projectsSchema = z.strictObject({ projects: z.array(z.strictObject({
   featured: z.boolean(),
 })).min(1) });
 
+const blogSchema = z.strictObject({
+  hero: z.strictObject({ title: localized, description: localized, image: imagePath }),
+  categories: z.array(z.strictObject({
+    id: z.string().regex(/^[a-z0-9-]+$/),
+    label: localized,
+    color: hexColor,
+  })).min(1),
+});
+
 function loadData<T>(fileName: string, schema: z.ZodType<T>): T {
   let raw: unknown;
   try {
@@ -128,10 +137,12 @@ export const research = loadData('research.yml', researchSchema);
 export const volunteering = loadData('volunteering.yml', volunteeringSchema);
 export const skills = loadData('skills.yml', skillsSchema);
 export const projects = loadData('projects.yml', projectsSchema).projects;
+export const blog = loadData('blog.yml', blogSchema);
 
 for (const [fileName, path] of [
   ['site.yml', site.hero.image],
   ['profile.yml', profile.photo],
+  ['blog.yml', blog.hero.image],
   ...education.entries.filter((entry) => entry.logo).map((entry) => ['education.yml', entry.logo!] as [string, string]),
   ...experience.entries.filter((entry) => entry.logo).map((entry) => ['experience.yml', entry.logo!] as [string, string]),
   ...research.entries.filter((entry) => entry.logo).map((entry) => ['research.yml', entry.logo!] as [string, string]),
@@ -144,5 +155,5 @@ for (const [fileName, path] of [
 }
 
 export type Locale = 'en' | 'pt';
-export type PageName = 'home' | 'about' | 'projects' | 'contact';
+export type PageName = 'home' | 'about' | 'projects' | 'blog' | 'contact';
 export type TimelineEntry = (typeof education.entries)[number] | (typeof experience.entries)[number] | (typeof research.entries)[number];
